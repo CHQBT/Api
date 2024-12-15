@@ -3,10 +3,9 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 	"milliy/config"
 	"milliy/storage"
-
-	_ "github.com/lib/pq"
 )
 
 type postgresStorage struct {

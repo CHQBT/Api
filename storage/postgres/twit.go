@@ -15,9 +15,9 @@ func NewCrudsRepo(db *sql.DB) *CrudsRepo {
 }
 
 func (r *CrudsRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
-	query := "INSERT INTO twit (user_id, texts, readers_count) VALUES ($1, $2, 0) RETURNING id"
+	query := "INSERT INTO twit (user_id, title, texts, readers_count) VALUES ($1, $2, 0) RETURNING id"
 	var id string
-	err := r.Db.QueryRow(query, req.UserID, req.Texts).Scan(&id)
+	err := r.Db.QueryRow(query, req.UserID, req.Title, req.Texts).Scan(&id)
 	if err != nil {
 		return "", err
 	}
@@ -26,9 +26,9 @@ func (r *CrudsRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
 
 // GetTwitByID fetches a twit by its ID.
 func (r *CrudsRepo) GetTwitByID(id string) (*model.Twit, error) {
-	query := "SELECT id, user_id, texts, readers_count FROM twit WHERE id = $1 AND deleted_at = 0"
+	query := "SELECT id, user_id, title, texts, readers_count FROM twit WHERE id = $1 AND deleted_at = 0"
 	var twit model.Twit
-	err := r.Db.QueryRow(query, id).Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.ReadersCount)
+	err := r.Db.QueryRow(query, id).Scan(&twit.ID, &twit.UserID, &twit.Title, &twit.Texts, &twit.ReadersCount)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
@@ -36,26 +36,6 @@ func (r *CrudsRepo) GetTwitByID(id string) (*model.Twit, error) {
 		return nil, err
 	}
 	return &twit, nil
-}
-
-// GetTwitsByUserID fetches all twits associated with a specific user ID.
-func (r *CrudsRepo) GetTwitsByUserID(userID string) ([]*model.Twit, error) {
-	query := "SELECT id, user_id, texts, readers_count FROM twit WHERE user_id = $1 AND deleted_at = 0"
-	rows, err := r.Db.Query(query, userID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	var twits []*model.Twit
-	for rows.Next() {
-		var twit model.Twit
-		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.ReadersCount); err != nil {
-			return nil, err
-		}
-		twits = append(twits, &twit)
-	}
-	return twits, nil
 }
 
 // DeleteTwit soft-deletes a twit by its ID.

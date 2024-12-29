@@ -65,3 +65,60 @@ func (r *TwitRepo) AddReadersCount(id string) error {
 
 	return nil
 }
+
+func (p *TwitRepo) GetMostViewedTwit(limit int) ([]model.Twit, error) {
+	var twits []model.Twit
+	query := `SELECT * FROM twit ORDER BY readers_count DESC LIMIT $1`
+	rows, err := p.Db.Query(query, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var twit model.Twit
+		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.Title, &twit.ReadersCount); err != nil {
+			return nil, err
+		}
+		twits = append(twits, twit)
+	}
+	return twits, nil
+}
+
+func (p *TwitRepo) GetLatestTwits(limit int) ([]model.Twit, error) {
+	var twits []model.Twit
+	query := `SELECT * FROM twit ORDER BY created_at DESC LIMIT $1`
+	rows, err := p.Db.Query(query, limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var twit model.Twit
+		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.Title, &twit.ReadersCount); err != nil {
+			return nil, err
+		}
+		twits = append(twits, twit)
+	}
+	return twits, nil
+}
+
+func (p *TwitRepo) SearchTwit(keyword string) ([]model.Twit, error) {
+	var twits []model.Twit
+	query := `SELECT * FROM twit WHERE title ILIKE '%' || $1 || '%' OR texts ILIKE '%' || $1 || '%'`
+	rows, err := p.Db.Query(query, keyword)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var twit model.Twit
+		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.Title, &twit.ReadersCount); err != nil {
+			return nil, err
+		}
+		twits = append(twits, twit)
+	}
+	return twits, nil
+}

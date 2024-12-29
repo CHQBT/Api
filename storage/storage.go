@@ -17,6 +17,9 @@ type TwitStorage interface {
 	GetTwitByID(string) (*model.Twit, error)
 	DeleteTwit(string) error
 	AddReadersCount(string) error
+	GetMostViewedTwit(int) ([]model.Twit, error)
+	GetLatestTwits(int) ([]model.Twit, error)
+	SearchTwit(string) ([]model.Twit, error)
 }
 
 type LocationStorage interface {

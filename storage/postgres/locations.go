@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"milliy/model"
+	"milliy/storage"
 )
 
 type LocationsRepo struct {
 	Db *sql.DB
 }
 
-func NewLocationsRepo(db *sql.DB) *LocationsRepo {
+func NewLocationsRepo(db *sql.DB) storage.LocationStorage {
 	return &LocationsRepo{Db: db}
 }
 

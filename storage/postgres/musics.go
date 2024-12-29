@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"milliy/model"
+	"milliy/storage"
 )
 
 type MusicsRepo struct {
 	Db *sql.DB
 }
 
-func NewMusicsRepo(db *sql.DB) *MusicsRepo {
+func NewMusicsRepo(db *sql.DB) storage.MusicStorage {
 	return &MusicsRepo{Db: db}
 }
 

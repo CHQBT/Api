@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"milliy/model"
+	"milliy/storage"
 )
 
 type PhotosRepo struct {
 	Db *sql.DB
 }
 
-func NewPhotosRepo(db *sql.DB) *PhotosRepo {
+func NewPhotosRepo(db *sql.DB) storage.PhotoStorage {
 	return &PhotosRepo{Db: db}
 }
 

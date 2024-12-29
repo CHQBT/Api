@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"milliy/model"
+	"milliy/storage"
 )
 
 type URLsRepo struct {
 	Db *sql.DB
 }
 
-func NewURLsRepo(db *sql.DB) *URLsRepo {
+func NewURLsRepo(db *sql.DB) storage.UrlStorage {
 	return &URLsRepo{Db: db}
 }
 

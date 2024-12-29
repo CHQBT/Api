@@ -4,17 +4,18 @@ import (
 	"database/sql"
 	"errors"
 	"milliy/model"
+	"milliy/storage"
 )
 
-type CrudsRepo struct {
+type TwitRepo struct {
 	Db *sql.DB
 }
 
-func NewCrudsRepo(db *sql.DB) *CrudsRepo {
-	return &CrudsRepo{Db: db}
+func NewTwitRepo(db *sql.DB) storage.TwitStorage {
+	return &TwitRepo{Db: db}
 }
 
-func (r *CrudsRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
+func (r *TwitRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
 	query := "INSERT INTO twit (user_id, title, texts, readers_count) VALUES ($1, $2, 0) RETURNING id"
 	var id string
 	err := r.Db.QueryRow(query, req.UserID, req.Title, req.Texts).Scan(&id)
@@ -25,7 +26,7 @@ func (r *CrudsRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
 }
 
 // GetTwitByID fetches a twit by its ID.
-func (r *CrudsRepo) GetTwitByID(id string) (*model.Twit, error) {
+func (r *TwitRepo) GetTwitByID(id string) (*model.Twit, error) {
 	query := "SELECT id, user_id, title, texts, readers_count FROM twit WHERE id = $1 AND deleted_at = 0"
 	var twit model.Twit
 	err := r.Db.QueryRow(query, id).Scan(&twit.ID, &twit.UserID, &twit.Title, &twit.Texts, &twit.ReadersCount)
@@ -39,14 +40,14 @@ func (r *CrudsRepo) GetTwitByID(id string) (*model.Twit, error) {
 }
 
 // DeleteTwit soft-deletes a twit by its ID.
-func (r *CrudsRepo) DeleteTwit(id string) error {
+func (r *TwitRepo) DeleteTwit(id string) error {
 	query := "UPDATE twit SET deleted_at = EXTRACT(EPOCH FROM now()) WHERE id = $1"
 	_, err := r.Db.Exec(query, id)
 	return err
 }
 
 // AddReadersCount increments the readers_count of a twit by 1.
-func (r *CrudsRepo) AddReadersCount(id string) error {
+func (r *TwitRepo) AddReadersCount(id string) error {
 	query := "UPDATE twit SET readers_count = readers_count + 1 WHERE id = $1"
 	result, err := r.Db.Exec(query, id)
 	if err != nil {

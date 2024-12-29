@@ -37,3 +37,26 @@ func ConnectionDb() (*sql.DB, error) {
 func (p *postgresStorage) Close() {
 	p.db.Close()
 }
+
+func (p *postgresStorage) Twit() storage.TwitStorage {
+	return NewTwitRepo(p.db)
+}
+
+func (p *postgresStorage) Location() storage.LocationStorage {
+	return NewLocationsRepo(p.db)
+}
+
+func (p *postgresStorage) Music() storage.MusicStorage {
+	return NewMusicsRepo(p.db)
+}
+
+func (p *postgresStorage) Photo() storage.PhotoStorage {
+	return NewPhotosRepo(p.db)
+}
+
+func (p *postgresStorage) Url() storage.UrlStorage {
+	return NewURLsRepo(p.db)
+}
+func (p *postgresStorage) Video() storage.VideoStorage {
+	return NewVideosRepo(p.db)
+}

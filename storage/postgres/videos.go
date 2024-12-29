@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"milliy/model"
+	"milliy/storage"
 )
 
 type VideosRepo struct {
 	Db *sql.DB
 }
 
-func NewVideosRepo(db *sql.DB) *VideosRepo {
+func NewVideosRepo(db *sql.DB) storage.VideoStorage {
 	return &VideosRepo{Db: db}
 }
 

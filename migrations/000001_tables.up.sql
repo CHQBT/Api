@@ -1,4 +1,8 @@
+-- 1_create_roles_enum.up.sql
 CREATE TYPE roles AS ENUM ('admin');
+
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -11,10 +15,11 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 
-
 CREATE TABLE IF NOT EXISTS twit(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id),
+    publisher_FIO TEXT NOT NULL,
+    type TEXT NOT NULL,
     title TEXT NOT NULL,
     texts TEXT NOT NULL,
     readers_count INTEGER,
@@ -50,7 +55,7 @@ CREATE TABLE IF NOT EXISTS musics(
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     deleted_at Bigint DEFAULT 0
-)
+);
 
 
 
@@ -62,7 +67,7 @@ CREATE TABLE IF NOT EXISTS locations(
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     deleted_at Bigint DEFAULT 0
-)
+);
 
 CREATE TABLE IF NOT EXISTS urls(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -71,4 +76,4 @@ CREATE TABLE IF NOT EXISTS urls(
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     deleted_at Bigint DEFAULT 0
-)
+);

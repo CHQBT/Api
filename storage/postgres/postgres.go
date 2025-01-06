@@ -3,9 +3,10 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"milliy/config"
 	"milliy/storage"
+
+	_ "github.com/lib/pq"
 )
 
 type postgresStorage struct {
@@ -59,4 +60,8 @@ func (p *postgresStorage) Url() storage.UrlStorage {
 }
 func (p *postgresStorage) Video() storage.VideoStorage {
 	return NewVideosRepo(p.db)
+}
+
+func (p *postgresStorage) User() storage.UserStorage {
+	return NewUsersRepo(p.db)
 }

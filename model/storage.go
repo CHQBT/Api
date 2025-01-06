@@ -2,14 +2,18 @@ package model
 
 // Twit
 type CreateTwitRequest struct {
-	UserID string `json:"user_id"`
-	Texts  string `json:"texts"`
-	Title  string `json:"title"`
+	UserID       string `json:"user_id"`
+	PublisherFIO string `json:"publisher_fio"`
+	Type         string `json:"type"`
+	Texts        string `json:"texts"`
+	Title        string `json:"title"`
 }
 
 type Twit struct {
 	ID           string `json:"id"`
 	UserID       string `json:"user_id"`
+	PublisherFIO string `json:"publisher_fio"`
+	Type         string `json:"type"`
 	Texts        string `json:"texts"`
 	Title        string `json:"title"`
 	ReadersCount int    `json:"readers_count"`
@@ -75,4 +79,11 @@ type URL struct {
 	ID     string `json:"id"`
 	TwitID string `json:"twit_id"`
 	URL    string `json:"url"`
+}
+
+// User
+type User struct {
+	ID           string `json:"id"`
+	Login        string `json:"login"`
+	PasswordHash string `json:"-"`
 }

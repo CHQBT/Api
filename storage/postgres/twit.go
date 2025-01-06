@@ -16,9 +16,26 @@ func NewTwitRepo(db *sql.DB) storage.TwitStorage {
 }
 
 func (r *TwitRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
-	query := "INSERT INTO twit (user_id, title, texts, readers_count) VALUES ($1, $2, 0) RETURNING id"
+	query := `
+		INSERT INTO twit (
+			user_id, 
+			publisher_FIO,
+			type,
+			title, 
+			texts, 
+			readers_count
+		) VALUES ($1, $2, $3, $4, $5, 0) 
+		RETURNING id`
+
 	var id string
-	err := r.Db.QueryRow(query, req.UserID, req.Title, req.Texts).Scan(&id)
+	err := r.Db.QueryRow(
+		query,
+		req.UserID,
+		req.PublisherFIO,
+		req.Type,
+		req.Title,
+		req.Texts,
+	).Scan(&id)
 	if err != nil {
 		return "", err
 	}
@@ -27,9 +44,28 @@ func (r *TwitRepo) CreateTwit(req *model.CreateTwitRequest) (string, error) {
 
 // GetTwitByID fetches a twit by its ID.
 func (r *TwitRepo) GetTwitByID(id string) (*model.Twit, error) {
-	query := "SELECT id, user_id, title, texts, readers_count FROM twit WHERE id = $1 AND deleted_at = 0"
+	query := `
+		SELECT 
+			id, 
+			user_id, 
+			publisher_FIO,
+			type,
+			title, 
+			texts, 
+			readers_count 
+		FROM twit 
+		WHERE id = $1 AND deleted_at = 0`
+
 	var twit model.Twit
-	err := r.Db.QueryRow(query, id).Scan(&twit.ID, &twit.UserID, &twit.Title, &twit.Texts, &twit.ReadersCount)
+	err := r.Db.QueryRow(query, id).Scan(
+		&twit.ID,
+		&twit.UserID,
+		&twit.PublisherFIO,
+		&twit.Type,
+		&twit.Title,
+		&twit.Texts,
+		&twit.ReadersCount,
+	)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
@@ -68,7 +104,20 @@ func (r *TwitRepo) AddReadersCount(id string) error {
 
 func (p *TwitRepo) GetMostViewedTwit(limit int) ([]model.Twit, error) {
 	var twits []model.Twit
-	query := `SELECT * FROM twit ORDER BY readers_count DESC LIMIT $1`
+	query := `
+		SELECT 
+			id,
+			user_id,
+			publisher_FIO,
+			type,
+			title,
+			texts,
+			readers_count
+		FROM twit 
+		WHERE deleted_at = 0
+		ORDER BY readers_count DESC 
+		LIMIT $1`
+
 	rows, err := p.Db.Query(query, limit)
 	if err != nil {
 		return nil, err
@@ -77,7 +126,15 @@ func (p *TwitRepo) GetMostViewedTwit(limit int) ([]model.Twit, error) {
 
 	for rows.Next() {
 		var twit model.Twit
-		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.Title, &twit.ReadersCount); err != nil {
+		if err := rows.Scan(
+			&twit.ID,
+			&twit.UserID,
+			&twit.PublisherFIO,
+			&twit.Type,
+			&twit.Title,
+			&twit.Texts,
+			&twit.ReadersCount,
+		); err != nil {
 			return nil, err
 		}
 		twits = append(twits, twit)
@@ -87,7 +144,20 @@ func (p *TwitRepo) GetMostViewedTwit(limit int) ([]model.Twit, error) {
 
 func (p *TwitRepo) GetLatestTwits(limit int) ([]model.Twit, error) {
 	var twits []model.Twit
-	query := `SELECT * FROM twit ORDER BY created_at DESC LIMIT $1`
+	query := `
+		SELECT 
+			id,
+			user_id,
+			publisher_FIO,
+			type,
+			title,
+			texts,
+			readers_count
+		FROM twit 
+		WHERE deleted_at = 0
+		ORDER BY created_at DESC 
+		LIMIT $1`
+
 	rows, err := p.Db.Query(query, limit)
 	if err != nil {
 		return nil, err
@@ -96,7 +166,15 @@ func (p *TwitRepo) GetLatestTwits(limit int) ([]model.Twit, error) {
 
 	for rows.Next() {
 		var twit model.Twit
-		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.Title, &twit.ReadersCount); err != nil {
+		if err := rows.Scan(
+			&twit.ID,
+			&twit.UserID,
+			&twit.PublisherFIO,
+			&twit.Type,
+			&twit.Title,
+			&twit.Texts,
+			&twit.ReadersCount,
+		); err != nil {
 			return nil, err
 		}
 		twits = append(twits, twit)
@@ -106,7 +184,22 @@ func (p *TwitRepo) GetLatestTwits(limit int) ([]model.Twit, error) {
 
 func (p *TwitRepo) SearchTwit(keyword string) ([]model.Twit, error) {
 	var twits []model.Twit
-	query := `SELECT * FROM twit WHERE title ILIKE '%' || $1 || '%' OR texts ILIKE '%' || $1 || '%'`
+	query := `
+		SELECT 
+			id,
+			user_id,
+			publisher_FIO,
+			type,
+			title,
+			texts,
+			readers_count
+		FROM twit 
+		WHERE deleted_at = 0 AND
+			(title ILIKE '%' || $1 || '%' OR 
+			 texts ILIKE '%' || $1 || '%' OR
+			 publisher_FIO ILIKE '%' || $1 || '%')
+	`
+
 	rows, err := p.Db.Query(query, keyword)
 	if err != nil {
 		return nil, err
@@ -115,7 +208,15 @@ func (p *TwitRepo) SearchTwit(keyword string) ([]model.Twit, error) {
 
 	for rows.Next() {
 		var twit model.Twit
-		if err := rows.Scan(&twit.ID, &twit.UserID, &twit.Texts, &twit.Title, &twit.ReadersCount); err != nil {
+		if err := rows.Scan(
+			&twit.ID,
+			&twit.UserID,
+			&twit.PublisherFIO,
+			&twit.Type,
+			&twit.Title,
+			&twit.Texts,
+			&twit.ReadersCount,
+		); err != nil {
 			return nil, err
 		}
 		twits = append(twits, twit)

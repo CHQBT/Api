@@ -9,6 +9,7 @@ type IStorage interface {
 	Photo() PhotoStorage
 	Url() UrlStorage
 	Video() VideoStorage
+	User() UserStorage
 	Close()
 }
 
@@ -65,4 +66,9 @@ type VideoStorage interface {
 	GetByTwitID(twitID string) ([]model.Video, error)
 	GetByID(id string) (*model.Video, error)
 	UpdateByID(id string, req *model.CreateVideoRequest) error
+}
+
+type UserStorage interface {
+	CheckPassword(login, password string) (bool, error)
+	GetUserByID(id string) (*model.User, error)
 }

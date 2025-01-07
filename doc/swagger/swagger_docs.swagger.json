@@ -1,0 +1,215 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Service API",
+    "description": "API for twit management",
+    "version": "1.0",
+    "contact": {
+      "name": "Api service",
+      "url": "https://github.com/CHQBT/Api",
+      "email": "nurmuhammadmel@gmail.com"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/twit": {
+      "post": {
+        "operationId": "TwitService_CreateTwit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwit"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreateTwitReq"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/twit/{id}": {
+      "get": {
+        "operationId": "TwitService_GetTwit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwit"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1/user/login": {
+      "post": {
+        "operationId": "UserService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLoginRes"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userLoginReq"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "userCreateTwitReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "publisher_fio": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "texts": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "userLoginReq": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "userLoginRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "userTwit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "publisher_fio": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "texts": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "readers_count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

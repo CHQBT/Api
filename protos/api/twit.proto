@@ -1,0 +1,42 @@
+syntax = "proto3";
+package user;
+option go_package = "milliy/generated/user";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+service TwitService {
+    rpc CreateTwit(CreateTwitReq) returns (Twit) {
+        option (google.api.http) = {
+            post: "/v1/twit"
+            body: "*"
+        };
+    }
+    
+    rpc GetTwit(GetTwitReq) returns (Twit) {
+        option (google.api.http) = {
+            get: "/v1/twit/{id}"
+        };
+    }
+}
+
+message CreateTwitReq {
+    string user_id = 1;
+    string publisher_fio = 2;
+    string type = 3;
+    string texts = 4;
+    string title = 5;
+}
+
+message GetTwitReq {
+    string id = 1;
+}
+
+message Twit {
+    string id = 1;
+    string user_id = 2;
+    string publisher_fio = 3;
+    string type = 4;
+    string texts = 5;
+    string title = 6;
+    int32 readers_count = 7;
+} 

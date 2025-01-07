@@ -19,6 +19,7 @@
   "paths": {
     "/v1/twit": {
       "post": {
+        "description": "Create a new twit",
         "operationId": "TwitService_CreateTwit",
         "responses": {
           "200": {
@@ -43,11 +44,17 @@
               "$ref": "#/definitions/userCreateTwitReq"
             }
           }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
         ]
       }
     },
     "/v1/twit/{id}": {
       "get": {
+        "description": "Register a new user",
         "operationId": "TwitService_GetTwit",
         "responses": {
           "200": {
@@ -66,6 +73,135 @@
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1/twits": {
+      "get": {
+        "operationId": "TwitService_GetAllTwits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwitList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/v1/twits/latest": {
+      "get": {
+        "operationId": "TwitService_GetLatestTwits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwitList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ]
+      }
+    },
+    "/v1/twits/most-viewed": {
+      "get": {
+        "operationId": "TwitService_GetMostViewedTwits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwitList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ]
+      }
+    },
+    "/v1/twits/search": {
+      "get": {
+        "operationId": "TwitService_SearchTwits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwitList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/v1/twits/type/{type}": {
+      "get": {
+        "operationId": "TwitService_GetTwitsByType",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userTwitList"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
             "in": "path",
             "required": true,
             "type": "string"
@@ -152,6 +288,17 @@
         }
       }
     },
+    "userLocationInfo": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "string"
+        },
+        "lon": {
+          "type": "string"
+        }
+      }
+    },
     "userLoginReq": {
       "type": "object",
       "properties": {
@@ -173,6 +320,22 @@
           "type": "string"
         },
         "token": {
+          "type": "string"
+        }
+      }
+    },
+    "userMusicInfo": {
+      "type": "object",
+      "properties": {
+        "mp3": {
+          "type": "string"
+        }
+      }
+    },
+    "userPhotoInfo": {
+      "type": "object",
+      "properties": {
+        "photo": {
           "type": "string"
         }
       }
@@ -201,6 +364,71 @@
         "readers_count": {
           "type": "integer",
           "format": "int32"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userVideoInfo"
+          }
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userPhotoInfo"
+          }
+        },
+        "musics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userMusicInfo"
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userLocationInfo"
+          }
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/userUrlInfo"
+          }
+        }
+      }
+    },
+    "userTwitList": {
+      "type": "object",
+      "properties": {
+        "twit_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "userUrlInfo": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "userVideoInfo": {
+      "type": "object",
+      "properties": {
+        "video": {
+          "type": "string"
         }
       }
     }

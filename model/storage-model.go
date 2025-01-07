@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 // Twit
 type CreateTwitRequest struct {
 	UserID       string `json:"user_id"`
@@ -10,13 +12,14 @@ type CreateTwitRequest struct {
 }
 
 type Twit struct {
-	ID           string `json:"id"`
-	UserID       string `json:"user_id"`
-	PublisherFIO string `json:"publisher_fio"`
-	Type         string `json:"type"`
-	Texts        string `json:"texts"`
-	Title        string `json:"title"`
-	ReadersCount int    `json:"readers_count"`
+	ID           string    `json:"id"`
+	UserID       string    `json:"user_id"`
+	PublisherFIO string    `json:"publisher_fio"`
+	Type         string    `json:"type"`
+	Texts        string    `json:"texts"`
+	Title        string    `json:"title"`
+	ReadersCount int       `json:"readers_count"`
+	CreatedAt    time.Time `json:"created_at"`
 }
 
 // Video

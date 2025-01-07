@@ -10,11 +10,53 @@ service TwitService {
             post: "/v1/twit"
             body: "*"
         };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Create a new twit"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
+        };
     }
     
-    rpc GetTwit(GetTwitReq) returns (Twit) {
+    rpc GetTwit(TWitId) returns (Twit) {
         option (google.api.http) = {
             get: "/v1/twit/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Register a new user"
+        };
+    }
+
+    rpc GetAllTwits(Empty) returns (TwitList) {
+        option (google.api.http) = {
+            get: "/v1/twits"
+        };
+    }
+
+    rpc GetTwitsByType(TypeRequest) returns (TwitList) {
+        option (google.api.http) = {
+            get: "/v1/twits/type/{type}"
+        };
+    }
+
+    rpc GetMostViewedTwits(LimitRequest) returns (TwitList) {
+        option (google.api.http) = {
+            get: "/v1/twits/most-viewed"
+        };
+    }
+
+    rpc GetLatestTwits(LimitRequest) returns (TwitList) {
+        option (google.api.http) = {
+            get: "/v1/twits/latest"
+        };
+    }
+
+    rpc SearchTwits(SearchRequest) returns (TwitList) {
+        option (google.api.http) = {
+            get: "/v1/twits/search"
         };
     }
 }
@@ -27,8 +69,29 @@ message CreateTwitReq {
     string title = 5;
 }
 
-message GetTwitReq {
-    string id = 1;
+message TWitId{
+    string id=1;
+}
+
+message VideoInfo {
+    string video = 1;
+}
+
+message PhotoInfo {
+    string photo = 1;
+}
+
+message MusicInfo {
+    string mp3 = 1;
+}
+
+message LocationInfo {
+    string lat = 1;
+    string lon = 2;
+}
+
+message UrlInfo {
+    string url = 1;
 }
 
 message Twit {
@@ -39,4 +102,28 @@ message Twit {
     string texts = 5;
     string title = 6;
     int32 readers_count = 7;
+    string created_at = 8;
+    repeated VideoInfo videos = 9;
+    repeated PhotoInfo photos = 10;
+    repeated MusicInfo musics = 11;
+    repeated LocationInfo locations = 12;
+    repeated UrlInfo urls = 13;
+}
+
+message Empty {}
+
+message TypeRequest {
+    string type = 1;
+}
+
+message LimitRequest {
+    int32 limit = 1;
+}
+
+message SearchRequest {
+    string keyword = 1;
+}
+
+message TwitList {
+    repeated string twit_ids = 1;
 } 

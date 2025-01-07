@@ -19,8 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TwitService_CreateTwit_FullMethodName = "/user.TwitService/CreateTwit"
-	TwitService_GetTwit_FullMethodName    = "/user.TwitService/GetTwit"
+	TwitService_CreateTwit_FullMethodName         = "/user.TwitService/CreateTwit"
+	TwitService_GetTwit_FullMethodName            = "/user.TwitService/GetTwit"
+	TwitService_GetAllTwits_FullMethodName        = "/user.TwitService/GetAllTwits"
+	TwitService_GetTwitsByType_FullMethodName     = "/user.TwitService/GetTwitsByType"
+	TwitService_GetMostViewedTwits_FullMethodName = "/user.TwitService/GetMostViewedTwits"
+	TwitService_GetLatestTwits_FullMethodName     = "/user.TwitService/GetLatestTwits"
+	TwitService_SearchTwits_FullMethodName        = "/user.TwitService/SearchTwits"
 )
 
 // TwitServiceClient is the client API for TwitService service.
@@ -28,7 +33,12 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TwitServiceClient interface {
 	CreateTwit(ctx context.Context, in *CreateTwitReq, opts ...grpc.CallOption) (*Twit, error)
-	GetTwit(ctx context.Context, in *GetTwitReq, opts ...grpc.CallOption) (*Twit, error)
+	GetTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Twit, error)
+	GetAllTwits(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*TwitList, error)
+	GetTwitsByType(ctx context.Context, in *TypeRequest, opts ...grpc.CallOption) (*TwitList, error)
+	GetMostViewedTwits(ctx context.Context, in *LimitRequest, opts ...grpc.CallOption) (*TwitList, error)
+	GetLatestTwits(ctx context.Context, in *LimitRequest, opts ...grpc.CallOption) (*TwitList, error)
+	SearchTwits(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*TwitList, error)
 }
 
 type twitServiceClient struct {
@@ -49,10 +59,60 @@ func (c *twitServiceClient) CreateTwit(ctx context.Context, in *CreateTwitReq, o
 	return out, nil
 }
 
-func (c *twitServiceClient) GetTwit(ctx context.Context, in *GetTwitReq, opts ...grpc.CallOption) (*Twit, error) {
+func (c *twitServiceClient) GetTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Twit, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Twit)
 	err := c.cc.Invoke(ctx, TwitService_GetTwit_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) GetAllTwits(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*TwitList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TwitList)
+	err := c.cc.Invoke(ctx, TwitService_GetAllTwits_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) GetTwitsByType(ctx context.Context, in *TypeRequest, opts ...grpc.CallOption) (*TwitList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TwitList)
+	err := c.cc.Invoke(ctx, TwitService_GetTwitsByType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) GetMostViewedTwits(ctx context.Context, in *LimitRequest, opts ...grpc.CallOption) (*TwitList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TwitList)
+	err := c.cc.Invoke(ctx, TwitService_GetMostViewedTwits_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) GetLatestTwits(ctx context.Context, in *LimitRequest, opts ...grpc.CallOption) (*TwitList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TwitList)
+	err := c.cc.Invoke(ctx, TwitService_GetLatestTwits_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) SearchTwits(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*TwitList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TwitList)
+	err := c.cc.Invoke(ctx, TwitService_SearchTwits_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +124,12 @@ func (c *twitServiceClient) GetTwit(ctx context.Context, in *GetTwitReq, opts ..
 // for forward compatibility.
 type TwitServiceServer interface {
 	CreateTwit(context.Context, *CreateTwitReq) (*Twit, error)
-	GetTwit(context.Context, *GetTwitReq) (*Twit, error)
+	GetTwit(context.Context, *TWitId) (*Twit, error)
+	GetAllTwits(context.Context, *Empty) (*TwitList, error)
+	GetTwitsByType(context.Context, *TypeRequest) (*TwitList, error)
+	GetMostViewedTwits(context.Context, *LimitRequest) (*TwitList, error)
+	GetLatestTwits(context.Context, *LimitRequest) (*TwitList, error)
+	SearchTwits(context.Context, *SearchRequest) (*TwitList, error)
 	mustEmbedUnimplementedTwitServiceServer()
 }
 
@@ -78,8 +143,23 @@ type UnimplementedTwitServiceServer struct{}
 func (UnimplementedTwitServiceServer) CreateTwit(context.Context, *CreateTwitReq) (*Twit, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTwit not implemented")
 }
-func (UnimplementedTwitServiceServer) GetTwit(context.Context, *GetTwitReq) (*Twit, error) {
+func (UnimplementedTwitServiceServer) GetTwit(context.Context, *TWitId) (*Twit, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTwit not implemented")
+}
+func (UnimplementedTwitServiceServer) GetAllTwits(context.Context, *Empty) (*TwitList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllTwits not implemented")
+}
+func (UnimplementedTwitServiceServer) GetTwitsByType(context.Context, *TypeRequest) (*TwitList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTwitsByType not implemented")
+}
+func (UnimplementedTwitServiceServer) GetMostViewedTwits(context.Context, *LimitRequest) (*TwitList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMostViewedTwits not implemented")
+}
+func (UnimplementedTwitServiceServer) GetLatestTwits(context.Context, *LimitRequest) (*TwitList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestTwits not implemented")
+}
+func (UnimplementedTwitServiceServer) SearchTwits(context.Context, *SearchRequest) (*TwitList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchTwits not implemented")
 }
 func (UnimplementedTwitServiceServer) mustEmbedUnimplementedTwitServiceServer() {}
 func (UnimplementedTwitServiceServer) testEmbeddedByValue()                     {}
@@ -121,7 +201,7 @@ func _TwitService_CreateTwit_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _TwitService_GetTwit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTwitReq)
+	in := new(TWitId)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -133,7 +213,97 @@ func _TwitService_GetTwit_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: TwitService_GetTwit_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TwitServiceServer).GetTwit(ctx, req.(*GetTwitReq))
+		return srv.(TwitServiceServer).GetTwit(ctx, req.(*TWitId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_GetAllTwits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).GetAllTwits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_GetAllTwits_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).GetAllTwits(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_GetTwitsByType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).GetTwitsByType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_GetTwitsByType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).GetTwitsByType(ctx, req.(*TypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_GetMostViewedTwits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LimitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).GetMostViewedTwits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_GetMostViewedTwits_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).GetMostViewedTwits(ctx, req.(*LimitRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_GetLatestTwits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LimitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).GetLatestTwits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_GetLatestTwits_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).GetLatestTwits(ctx, req.(*LimitRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_SearchTwits_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).SearchTwits(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_SearchTwits_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).SearchTwits(ctx, req.(*SearchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -152,6 +322,26 @@ var TwitService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTwit",
 			Handler:    _TwitService_GetTwit_Handler,
+		},
+		{
+			MethodName: "GetAllTwits",
+			Handler:    _TwitService_GetAllTwits_Handler,
+		},
+		{
+			MethodName: "GetTwitsByType",
+			Handler:    _TwitService_GetTwitsByType_Handler,
+		},
+		{
+			MethodName: "GetMostViewedTwits",
+			Handler:    _TwitService_GetMostViewedTwits_Handler,
+		},
+		{
+			MethodName: "GetLatestTwits",
+			Handler:    _TwitService_GetLatestTwits_Handler,
+		},
+		{
+			MethodName: "SearchTwits",
+			Handler:    _TwitService_SearchTwits_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

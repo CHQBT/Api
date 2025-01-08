@@ -25,7 +25,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwit"
+              "$ref": "#/definitions/userTWitId"
             }
           },
           "default": {
@@ -42,6 +42,181 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/userCreateTwitReq"
+            }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/location": {
+      "post": {
+        "description": "Create a new location",
+        "operationId": "TwitService_CreateLocation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userLocationId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreateLocationReq"
+            }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/music": {
+      "post": {
+        "description": "Create a new music",
+        "operationId": "TwitService_CreateMusic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userMusicId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreateMusicReq"
+            }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/photo": {
+      "post": {
+        "description": "Create a new photo",
+        "operationId": "TwitService_CreatePhoto",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userPhotoId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreatePhotoReq"
+            }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/url": {
+      "post": {
+        "description": "Create a new url",
+        "operationId": "TwitService_CreateUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userUrlId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreateUrlReq"
+            }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/video": {
+      "post": {
+        "description": "Create a new video",
+        "operationId": "TwitService_CreateVideo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userVideoId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userCreateVideoReq"
             }
           }
         ],
@@ -78,6 +253,31 @@
             "type": "string"
           }
         ]
+      },
+      "post": {
+        "operationId": "TwitService_AddCountToTwit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
       }
     },
     "/v1/twits": {
@@ -97,6 +297,39 @@
             }
           }
         }
+      }
+    },
+    "/v1/twits/delete/{id}": {
+      "delete": {
+        "description": "delete a twit",
+        "operationId": "TwitService_DeleteTwit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/userEmpty"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
       }
     },
     "/v1/twits/latest": {
@@ -268,6 +501,42 @@
         }
       }
     },
+    "userCreateLocationReq": {
+      "type": "object",
+      "properties": {
+        "twit_id": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lon": {
+          "type": "string"
+        }
+      }
+    },
+    "userCreateMusicReq": {
+      "type": "object",
+      "properties": {
+        "twit_id": {
+          "type": "string"
+        },
+        "mp3": {
+          "type": "string"
+        }
+      }
+    },
+    "userCreatePhotoReq": {
+      "type": "object",
+      "properties": {
+        "twit_id": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        }
+      }
+    },
     "userCreateTwitReq": {
       "type": "object",
       "properties": {
@@ -284,6 +553,39 @@
           "type": "string"
         },
         "title": {
+          "type": "string"
+        }
+      }
+    },
+    "userCreateUrlReq": {
+      "type": "object",
+      "properties": {
+        "twit_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "userCreateVideoReq": {
+      "type": "object",
+      "properties": {
+        "twit_id": {
+          "type": "string"
+        },
+        "video": {
+          "type": "string"
+        }
+      }
+    },
+    "userEmpty": {
+      "type": "object"
+    },
+    "userLocationId": {
+      "type": "object",
+      "properties": {
+        "id": {
           "type": "string"
         }
       }
@@ -324,6 +626,14 @@
         }
       }
     },
+    "userMusicId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "userMusicInfo": {
       "type": "object",
       "properties": {
@@ -332,10 +642,26 @@
         }
       }
     },
+    "userPhotoId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "userPhotoInfo": {
       "type": "object",
       "properties": {
         "photo": {
+          "type": "string"
+        }
+      }
+    },
+    "userTWitId": {
+      "type": "object",
+      "properties": {
+        "id": {
           "type": "string"
         }
       }
@@ -416,10 +742,26 @@
         }
       }
     },
+    "userUrlId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
     "userUrlInfo": {
       "type": "object",
       "properties": {
         "url": {
+          "type": "string"
+        }
+      }
+    },
+    "userVideoId": {
+      "type": "object",
+      "properties": {
+        "id": {
           "type": "string"
         }
       }

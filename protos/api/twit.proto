@@ -5,7 +5,7 @@ import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 service TwitService {
-    rpc CreateTwit(CreateTwitReq) returns (Twit) {
+    rpc CreateTwit(CreateTwitReq) returns (TWitId) {
         option (google.api.http) = {
             post: "/v1/twit"
             body: "*"
@@ -57,6 +57,107 @@ service TwitService {
     rpc SearchTwits(SearchRequest) returns (TwitList) {
         option (google.api.http) = {
             get: "/v1/twits/search"
+        };
+    }
+
+    rpc DeleteTwit(TWitId) returns (Empty){
+        option (google.api.http) = {
+            delete: "/v1/twits/delete/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "delete a twit"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
+        };
+    }
+
+    rpc AddCountToTwit(TWitId) returns (Empty){
+        option (google.api.http) = {
+            post: "/v1/twit/{id}"
+        };
+    }
+
+    rpc CreateVideo(CreateVideoReq) returns (VideoId) {
+        option (google.api.http) = {
+            post: "/v1/twit/video"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Create a new video"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
+        };
+    }
+
+    rpc CreatePhoto(CreatePhotoReq) returns (PhotoId) {
+        option (google.api.http) = {
+            post: "/v1/twit/photo"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Create a new photo"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
+        };
+    }
+
+    rpc CreateMusic(CreateMusicReq) returns (MusicId) {
+        option (google.api.http) = {
+            post: "/v1/twit/music"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Create a new music"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
+        };
+    }
+
+    rpc CreateLocation(CreateLocationReq) returns (LocationId) {
+        option (google.api.http) = {
+            post: "/v1/twit/location"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Create a new location"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
+        };
+    }
+
+    rpc CreateUrl(CreateUrlReq) returns (UrlId) {
+        option (google.api.http) = {
+            post: "/v1/twit/url"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Create a new url"
+            security: {
+                security_requirement: {
+                    key: "ApiKeyAuth"
+                    value: {}
+                }
+            }
         };
     }
 }
@@ -126,4 +227,50 @@ message SearchRequest {
 
 message TwitList {
     repeated string twit_ids = 1;
+}
+
+message CreateVideoReq {
+    string twit_id = 1;
+    string video = 2;
+}
+
+message VideoId {
+    string id = 1;
+}
+
+message CreatePhotoReq {
+    string twit_id = 1;
+    string photo = 2;
+}
+
+message PhotoId {
+    string id = 1;
+}
+
+message CreateMusicReq {
+    string twit_id = 1;
+    string mp3 = 2;
+}
+
+message MusicId {
+    string id = 1;
+}
+
+message CreateLocationReq {
+    string twit_id = 1;
+    string lat = 2;
+    string lon = 3;
+}
+
+message LocationId {
+    string id = 1;
+}
+
+message CreateUrlReq {
+    string twit_id = 1;
+    string url = 2;
+}
+
+message UrlId {
+    string id = 1;
 } 

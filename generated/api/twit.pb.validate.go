@@ -1535,3 +1535,1027 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TwitListValidationError{}
+
+// Validate checks the field values on CreateVideoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateVideoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateVideoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateVideoReqMultiError,
+// or nil if none found.
+func (m *CreateVideoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateVideoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TwitId
+
+	// no validation rules for Video
+
+	if len(errors) > 0 {
+		return CreateVideoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateVideoReqMultiError is an error wrapping multiple validation errors
+// returned by CreateVideoReq.ValidateAll() if the designated constraints
+// aren't met.
+type CreateVideoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateVideoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateVideoReqMultiError) AllErrors() []error { return m }
+
+// CreateVideoReqValidationError is the validation error returned by
+// CreateVideoReq.Validate if the designated constraints aren't met.
+type CreateVideoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateVideoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateVideoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateVideoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateVideoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateVideoReqValidationError) ErrorName() string { return "CreateVideoReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreateVideoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateVideoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateVideoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateVideoReqValidationError{}
+
+// Validate checks the field values on VideoId with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *VideoId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VideoId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in VideoIdMultiError, or nil if none found.
+func (m *VideoId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VideoId) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return VideoIdMultiError(errors)
+	}
+
+	return nil
+}
+
+// VideoIdMultiError is an error wrapping multiple validation errors returned
+// by VideoId.ValidateAll() if the designated constraints aren't met.
+type VideoIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VideoIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VideoIdMultiError) AllErrors() []error { return m }
+
+// VideoIdValidationError is the validation error returned by VideoId.Validate
+// if the designated constraints aren't met.
+type VideoIdValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VideoIdValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VideoIdValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VideoIdValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VideoIdValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VideoIdValidationError) ErrorName() string { return "VideoIdValidationError" }
+
+// Error satisfies the builtin error interface
+func (e VideoIdValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVideoId.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VideoIdValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VideoIdValidationError{}
+
+// Validate checks the field values on CreatePhotoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreatePhotoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreatePhotoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreatePhotoReqMultiError,
+// or nil if none found.
+func (m *CreatePhotoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreatePhotoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TwitId
+
+	// no validation rules for Photo
+
+	if len(errors) > 0 {
+		return CreatePhotoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreatePhotoReqMultiError is an error wrapping multiple validation errors
+// returned by CreatePhotoReq.ValidateAll() if the designated constraints
+// aren't met.
+type CreatePhotoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreatePhotoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreatePhotoReqMultiError) AllErrors() []error { return m }
+
+// CreatePhotoReqValidationError is the validation error returned by
+// CreatePhotoReq.Validate if the designated constraints aren't met.
+type CreatePhotoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreatePhotoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreatePhotoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreatePhotoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreatePhotoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreatePhotoReqValidationError) ErrorName() string { return "CreatePhotoReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreatePhotoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreatePhotoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreatePhotoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreatePhotoReqValidationError{}
+
+// Validate checks the field values on PhotoId with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PhotoId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PhotoId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in PhotoIdMultiError, or nil if none found.
+func (m *PhotoId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PhotoId) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return PhotoIdMultiError(errors)
+	}
+
+	return nil
+}
+
+// PhotoIdMultiError is an error wrapping multiple validation errors returned
+// by PhotoId.ValidateAll() if the designated constraints aren't met.
+type PhotoIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PhotoIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PhotoIdMultiError) AllErrors() []error { return m }
+
+// PhotoIdValidationError is the validation error returned by PhotoId.Validate
+// if the designated constraints aren't met.
+type PhotoIdValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PhotoIdValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PhotoIdValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PhotoIdValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PhotoIdValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PhotoIdValidationError) ErrorName() string { return "PhotoIdValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PhotoIdValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPhotoId.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PhotoIdValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PhotoIdValidationError{}
+
+// Validate checks the field values on CreateMusicReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateMusicReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateMusicReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateMusicReqMultiError,
+// or nil if none found.
+func (m *CreateMusicReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateMusicReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TwitId
+
+	// no validation rules for Mp3
+
+	if len(errors) > 0 {
+		return CreateMusicReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateMusicReqMultiError is an error wrapping multiple validation errors
+// returned by CreateMusicReq.ValidateAll() if the designated constraints
+// aren't met.
+type CreateMusicReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateMusicReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateMusicReqMultiError) AllErrors() []error { return m }
+
+// CreateMusicReqValidationError is the validation error returned by
+// CreateMusicReq.Validate if the designated constraints aren't met.
+type CreateMusicReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateMusicReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateMusicReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateMusicReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateMusicReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateMusicReqValidationError) ErrorName() string { return "CreateMusicReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreateMusicReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateMusicReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateMusicReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateMusicReqValidationError{}
+
+// Validate checks the field values on MusicId with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MusicId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MusicId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in MusicIdMultiError, or nil if none found.
+func (m *MusicId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MusicId) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return MusicIdMultiError(errors)
+	}
+
+	return nil
+}
+
+// MusicIdMultiError is an error wrapping multiple validation errors returned
+// by MusicId.ValidateAll() if the designated constraints aren't met.
+type MusicIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MusicIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MusicIdMultiError) AllErrors() []error { return m }
+
+// MusicIdValidationError is the validation error returned by MusicId.Validate
+// if the designated constraints aren't met.
+type MusicIdValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MusicIdValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MusicIdValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MusicIdValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MusicIdValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MusicIdValidationError) ErrorName() string { return "MusicIdValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MusicIdValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMusicId.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MusicIdValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MusicIdValidationError{}
+
+// Validate checks the field values on CreateLocationReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CreateLocationReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateLocationReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateLocationReqMultiError, or nil if none found.
+func (m *CreateLocationReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateLocationReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TwitId
+
+	// no validation rules for Lat
+
+	// no validation rules for Lon
+
+	if len(errors) > 0 {
+		return CreateLocationReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateLocationReqMultiError is an error wrapping multiple validation errors
+// returned by CreateLocationReq.ValidateAll() if the designated constraints
+// aren't met.
+type CreateLocationReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateLocationReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateLocationReqMultiError) AllErrors() []error { return m }
+
+// CreateLocationReqValidationError is the validation error returned by
+// CreateLocationReq.Validate if the designated constraints aren't met.
+type CreateLocationReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateLocationReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateLocationReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateLocationReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateLocationReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateLocationReqValidationError) ErrorName() string {
+	return "CreateLocationReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateLocationReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateLocationReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateLocationReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateLocationReqValidationError{}
+
+// Validate checks the field values on LocationId with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *LocationId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LocationId with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in LocationIdMultiError, or
+// nil if none found.
+func (m *LocationId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LocationId) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return LocationIdMultiError(errors)
+	}
+
+	return nil
+}
+
+// LocationIdMultiError is an error wrapping multiple validation errors
+// returned by LocationId.ValidateAll() if the designated constraints aren't met.
+type LocationIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LocationIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LocationIdMultiError) AllErrors() []error { return m }
+
+// LocationIdValidationError is the validation error returned by
+// LocationId.Validate if the designated constraints aren't met.
+type LocationIdValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LocationIdValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LocationIdValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LocationIdValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LocationIdValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LocationIdValidationError) ErrorName() string { return "LocationIdValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LocationIdValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLocationId.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LocationIdValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LocationIdValidationError{}
+
+// Validate checks the field values on CreateUrlReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateUrlReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateUrlReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateUrlReqMultiError, or
+// nil if none found.
+func (m *CreateUrlReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateUrlReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for TwitId
+
+	// no validation rules for Url
+
+	if len(errors) > 0 {
+		return CreateUrlReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateUrlReqMultiError is an error wrapping multiple validation errors
+// returned by CreateUrlReq.ValidateAll() if the designated constraints aren't met.
+type CreateUrlReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateUrlReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateUrlReqMultiError) AllErrors() []error { return m }
+
+// CreateUrlReqValidationError is the validation error returned by
+// CreateUrlReq.Validate if the designated constraints aren't met.
+type CreateUrlReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateUrlReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateUrlReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateUrlReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateUrlReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateUrlReqValidationError) ErrorName() string { return "CreateUrlReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreateUrlReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateUrlReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateUrlReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateUrlReqValidationError{}
+
+// Validate checks the field values on UrlId with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UrlId) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UrlId with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in UrlIdMultiError, or nil if none found.
+func (m *UrlId) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UrlId) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return UrlIdMultiError(errors)
+	}
+
+	return nil
+}
+
+// UrlIdMultiError is an error wrapping multiple validation errors returned by
+// UrlId.ValidateAll() if the designated constraints aren't met.
+type UrlIdMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UrlIdMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UrlIdMultiError) AllErrors() []error { return m }
+
+// UrlIdValidationError is the validation error returned by UrlId.Validate if
+// the designated constraints aren't met.
+type UrlIdValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UrlIdValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UrlIdValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UrlIdValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UrlIdValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UrlIdValidationError) ErrorName() string { return "UrlIdValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UrlIdValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUrlId.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UrlIdValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UrlIdValidationError{}

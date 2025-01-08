@@ -26,19 +26,33 @@ const (
 	TwitService_GetMostViewedTwits_FullMethodName = "/user.TwitService/GetMostViewedTwits"
 	TwitService_GetLatestTwits_FullMethodName     = "/user.TwitService/GetLatestTwits"
 	TwitService_SearchTwits_FullMethodName        = "/user.TwitService/SearchTwits"
+	TwitService_DeleteTwit_FullMethodName         = "/user.TwitService/DeleteTwit"
+	TwitService_AddCountToTwit_FullMethodName     = "/user.TwitService/AddCountToTwit"
+	TwitService_CreateVideo_FullMethodName        = "/user.TwitService/CreateVideo"
+	TwitService_CreatePhoto_FullMethodName        = "/user.TwitService/CreatePhoto"
+	TwitService_CreateMusic_FullMethodName        = "/user.TwitService/CreateMusic"
+	TwitService_CreateLocation_FullMethodName     = "/user.TwitService/CreateLocation"
+	TwitService_CreateUrl_FullMethodName          = "/user.TwitService/CreateUrl"
 )
 
 // TwitServiceClient is the client API for TwitService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TwitServiceClient interface {
-	CreateTwit(ctx context.Context, in *CreateTwitReq, opts ...grpc.CallOption) (*Twit, error)
+	CreateTwit(ctx context.Context, in *CreateTwitReq, opts ...grpc.CallOption) (*TWitId, error)
 	GetTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Twit, error)
 	GetAllTwits(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*TwitList, error)
 	GetTwitsByType(ctx context.Context, in *TypeRequest, opts ...grpc.CallOption) (*TwitList, error)
 	GetMostViewedTwits(ctx context.Context, in *LimitRequest, opts ...grpc.CallOption) (*TwitList, error)
 	GetLatestTwits(ctx context.Context, in *LimitRequest, opts ...grpc.CallOption) (*TwitList, error)
 	SearchTwits(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*TwitList, error)
+	DeleteTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Empty, error)
+	AddCountToTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Empty, error)
+	CreateVideo(ctx context.Context, in *CreateVideoReq, opts ...grpc.CallOption) (*VideoId, error)
+	CreatePhoto(ctx context.Context, in *CreatePhotoReq, opts ...grpc.CallOption) (*PhotoId, error)
+	CreateMusic(ctx context.Context, in *CreateMusicReq, opts ...grpc.CallOption) (*MusicId, error)
+	CreateLocation(ctx context.Context, in *CreateLocationReq, opts ...grpc.CallOption) (*LocationId, error)
+	CreateUrl(ctx context.Context, in *CreateUrlReq, opts ...grpc.CallOption) (*UrlId, error)
 }
 
 type twitServiceClient struct {
@@ -49,9 +63,9 @@ func NewTwitServiceClient(cc grpc.ClientConnInterface) TwitServiceClient {
 	return &twitServiceClient{cc}
 }
 
-func (c *twitServiceClient) CreateTwit(ctx context.Context, in *CreateTwitReq, opts ...grpc.CallOption) (*Twit, error) {
+func (c *twitServiceClient) CreateTwit(ctx context.Context, in *CreateTwitReq, opts ...grpc.CallOption) (*TWitId, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Twit)
+	out := new(TWitId)
 	err := c.cc.Invoke(ctx, TwitService_CreateTwit_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -119,17 +133,94 @@ func (c *twitServiceClient) SearchTwits(ctx context.Context, in *SearchRequest, 
 	return out, nil
 }
 
+func (c *twitServiceClient) DeleteTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, TwitService_DeleteTwit_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) AddCountToTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, TwitService_AddCountToTwit_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) CreateVideo(ctx context.Context, in *CreateVideoReq, opts ...grpc.CallOption) (*VideoId, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(VideoId)
+	err := c.cc.Invoke(ctx, TwitService_CreateVideo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) CreatePhoto(ctx context.Context, in *CreatePhotoReq, opts ...grpc.CallOption) (*PhotoId, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PhotoId)
+	err := c.cc.Invoke(ctx, TwitService_CreatePhoto_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) CreateMusic(ctx context.Context, in *CreateMusicReq, opts ...grpc.CallOption) (*MusicId, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MusicId)
+	err := c.cc.Invoke(ctx, TwitService_CreateMusic_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) CreateLocation(ctx context.Context, in *CreateLocationReq, opts ...grpc.CallOption) (*LocationId, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LocationId)
+	err := c.cc.Invoke(ctx, TwitService_CreateLocation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *twitServiceClient) CreateUrl(ctx context.Context, in *CreateUrlReq, opts ...grpc.CallOption) (*UrlId, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UrlId)
+	err := c.cc.Invoke(ctx, TwitService_CreateUrl_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TwitServiceServer is the server API for TwitService service.
 // All implementations must embed UnimplementedTwitServiceServer
 // for forward compatibility.
 type TwitServiceServer interface {
-	CreateTwit(context.Context, *CreateTwitReq) (*Twit, error)
+	CreateTwit(context.Context, *CreateTwitReq) (*TWitId, error)
 	GetTwit(context.Context, *TWitId) (*Twit, error)
 	GetAllTwits(context.Context, *Empty) (*TwitList, error)
 	GetTwitsByType(context.Context, *TypeRequest) (*TwitList, error)
 	GetMostViewedTwits(context.Context, *LimitRequest) (*TwitList, error)
 	GetLatestTwits(context.Context, *LimitRequest) (*TwitList, error)
 	SearchTwits(context.Context, *SearchRequest) (*TwitList, error)
+	DeleteTwit(context.Context, *TWitId) (*Empty, error)
+	AddCountToTwit(context.Context, *TWitId) (*Empty, error)
+	CreateVideo(context.Context, *CreateVideoReq) (*VideoId, error)
+	CreatePhoto(context.Context, *CreatePhotoReq) (*PhotoId, error)
+	CreateMusic(context.Context, *CreateMusicReq) (*MusicId, error)
+	CreateLocation(context.Context, *CreateLocationReq) (*LocationId, error)
+	CreateUrl(context.Context, *CreateUrlReq) (*UrlId, error)
 	mustEmbedUnimplementedTwitServiceServer()
 }
 
@@ -140,7 +231,7 @@ type TwitServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedTwitServiceServer struct{}
 
-func (UnimplementedTwitServiceServer) CreateTwit(context.Context, *CreateTwitReq) (*Twit, error) {
+func (UnimplementedTwitServiceServer) CreateTwit(context.Context, *CreateTwitReq) (*TWitId, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateTwit not implemented")
 }
 func (UnimplementedTwitServiceServer) GetTwit(context.Context, *TWitId) (*Twit, error) {
@@ -160,6 +251,27 @@ func (UnimplementedTwitServiceServer) GetLatestTwits(context.Context, *LimitRequ
 }
 func (UnimplementedTwitServiceServer) SearchTwits(context.Context, *SearchRequest) (*TwitList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchTwits not implemented")
+}
+func (UnimplementedTwitServiceServer) DeleteTwit(context.Context, *TWitId) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTwit not implemented")
+}
+func (UnimplementedTwitServiceServer) AddCountToTwit(context.Context, *TWitId) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCountToTwit not implemented")
+}
+func (UnimplementedTwitServiceServer) CreateVideo(context.Context, *CreateVideoReq) (*VideoId, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateVideo not implemented")
+}
+func (UnimplementedTwitServiceServer) CreatePhoto(context.Context, *CreatePhotoReq) (*PhotoId, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePhoto not implemented")
+}
+func (UnimplementedTwitServiceServer) CreateMusic(context.Context, *CreateMusicReq) (*MusicId, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMusic not implemented")
+}
+func (UnimplementedTwitServiceServer) CreateLocation(context.Context, *CreateLocationReq) (*LocationId, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLocation not implemented")
+}
+func (UnimplementedTwitServiceServer) CreateUrl(context.Context, *CreateUrlReq) (*UrlId, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateUrl not implemented")
 }
 func (UnimplementedTwitServiceServer) mustEmbedUnimplementedTwitServiceServer() {}
 func (UnimplementedTwitServiceServer) testEmbeddedByValue()                     {}
@@ -308,6 +420,132 @@ func _TwitService_SearchTwits_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TwitService_DeleteTwit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TWitId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).DeleteTwit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_DeleteTwit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).DeleteTwit(ctx, req.(*TWitId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_AddCountToTwit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TWitId)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).AddCountToTwit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_AddCountToTwit_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).AddCountToTwit(ctx, req.(*TWitId))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_CreateVideo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateVideoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).CreateVideo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_CreateVideo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).CreateVideo(ctx, req.(*CreateVideoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_CreatePhoto_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePhotoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).CreatePhoto(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_CreatePhoto_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).CreatePhoto(ctx, req.(*CreatePhotoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_CreateMusic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMusicReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).CreateMusic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_CreateMusic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).CreateMusic(ctx, req.(*CreateMusicReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_CreateLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLocationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).CreateLocation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_CreateLocation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).CreateLocation(ctx, req.(*CreateLocationReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TwitService_CreateUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateUrlReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TwitServiceServer).CreateUrl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TwitService_CreateUrl_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TwitServiceServer).CreateUrl(ctx, req.(*CreateUrlReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TwitService_ServiceDesc is the grpc.ServiceDesc for TwitService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +580,34 @@ var TwitService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchTwits",
 			Handler:    _TwitService_SearchTwits_Handler,
+		},
+		{
+			MethodName: "DeleteTwit",
+			Handler:    _TwitService_DeleteTwit_Handler,
+		},
+		{
+			MethodName: "AddCountToTwit",
+			Handler:    _TwitService_AddCountToTwit_Handler,
+		},
+		{
+			MethodName: "CreateVideo",
+			Handler:    _TwitService_CreateVideo_Handler,
+		},
+		{
+			MethodName: "CreatePhoto",
+			Handler:    _TwitService_CreatePhoto_Handler,
+		},
+		{
+			MethodName: "CreateMusic",
+			Handler:    _TwitService_CreateMusic_Handler,
+		},
+		{
+			MethodName: "CreateLocation",
+			Handler:    _TwitService_CreateLocation_Handler,
+		},
+		{
+			MethodName: "CreateUrl",
+			Handler:    _TwitService_CreateUrl_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

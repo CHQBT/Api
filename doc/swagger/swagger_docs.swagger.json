@@ -25,7 +25,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTWitId"
+              "$ref": "#/definitions/apiTWitId"
             }
           },
           "default": {
@@ -41,7 +41,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreateTwitReq"
+              "$ref": "#/definitions/apiCreateTwitReq"
             }
           }
         ],
@@ -60,7 +60,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userLocationId"
+              "$ref": "#/definitions/apiLocationId"
             }
           },
           "default": {
@@ -76,7 +76,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreateLocationReq"
+              "$ref": "#/definitions/apiCreateLocationReq"
             }
           }
         ],
@@ -89,13 +89,13 @@
     },
     "/v1/twit/music": {
       "post": {
-        "description": "Create a new music",
+        "description": "Upload a music file",
         "operationId": "TwitService_CreateMusic",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userMusicId"
+              "$ref": "#/definitions/apiMusicId"
             }
           },
           "default": {
@@ -111,9 +111,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreateMusicReq"
+              "$ref": "#/definitions/apiCreateMusicReq"
             }
           }
+        ],
+        "consumes": [
+          "multipart/form-data"
         ],
         "security": [
           {
@@ -124,13 +127,13 @@
     },
     "/v1/twit/photo": {
       "post": {
-        "description": "Create a new photo",
+        "description": "Upload a photo file",
         "operationId": "TwitService_CreatePhoto",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userPhotoId"
+              "$ref": "#/definitions/apiPhotoId"
             }
           },
           "default": {
@@ -146,9 +149,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreatePhotoReq"
+              "$ref": "#/definitions/apiCreatePhotoReq"
             }
           }
+        ],
+        "consumes": [
+          "multipart/form-data"
         ],
         "security": [
           {
@@ -165,7 +171,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userUrlId"
+              "$ref": "#/definitions/apiUrlId"
             }
           },
           "default": {
@@ -181,7 +187,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreateUrlReq"
+              "$ref": "#/definitions/apiCreateUrlReq"
             }
           }
         ],
@@ -194,13 +200,13 @@
     },
     "/v1/twit/video": {
       "post": {
-        "description": "Create a new video",
+        "description": "Upload a video file",
         "operationId": "TwitService_CreateVideo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userVideoId"
+              "$ref": "#/definitions/apiVideoId"
             }
           },
           "default": {
@@ -216,9 +222,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userCreateVideoReq"
+              "$ref": "#/definitions/apiCreateVideoReq"
             }
           }
+        ],
+        "consumes": [
+          "multipart/form-data"
         ],
         "security": [
           {
@@ -235,7 +244,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwit"
+              "$ref": "#/definitions/apiTwit"
             }
           },
           "default": {
@@ -260,7 +269,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userEmpty"
+              "$ref": "#/definitions/apiEmpty"
             }
           },
           "default": {
@@ -280,6 +289,159 @@
         ]
       }
     },
+    "/v1/twit/{twit_id}/music/upload": {
+      "post": {
+        "description": "Upload a music file",
+        "operationId": "TwitService_CreateMusic2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiMusicId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "twit_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "name": "file_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/{twit_id}/photo/upload": {
+      "post": {
+        "description": "Upload a photo file",
+        "operationId": "TwitService_CreatePhoto2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiPhotoId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "twit_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "name": "file_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/twit/{twit_id}/video/upload": {
+      "post": {
+        "description": "Upload a video file",
+        "operationId": "TwitService_CreateVideo2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiVideoId"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "twit_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "byte"
+            }
+          },
+          {
+            "name": "file_name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/v1/twits": {
       "get": {
         "operationId": "TwitService_GetAllTwits",
@@ -287,7 +449,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwitList"
+              "$ref": "#/definitions/apiTwitList"
             }
           },
           "default": {
@@ -307,7 +469,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userEmpty"
+              "$ref": "#/definitions/apiEmpty"
             }
           },
           "default": {
@@ -339,7 +501,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwitList"
+              "$ref": "#/definitions/apiTwitList"
             }
           },
           "default": {
@@ -367,7 +529,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwitList"
+              "$ref": "#/definitions/apiTwitList"
             }
           },
           "default": {
@@ -395,7 +557,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwitList"
+              "$ref": "#/definitions/apiTwitList"
             }
           },
           "default": {
@@ -422,7 +584,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userTwitList"
+              "$ref": "#/definitions/apiTwitList"
             }
           },
           "default": {
@@ -449,7 +611,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/userLoginRes"
+              "$ref": "#/definitions/apiLoginRes"
             }
           },
           "default": {
@@ -465,7 +627,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/userLoginReq"
+              "$ref": "#/definitions/apiLoginReq"
             }
           }
         ]
@@ -473,35 +635,7 @@
     }
   },
   "definitions": {
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "@type": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": {}
-    },
-    "rpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/protobufAny"
-          }
-        }
-      }
-    },
-    "userCreateLocationReq": {
+    "apiCreateLocationReq": {
       "type": "object",
       "properties": {
         "twit_id": {
@@ -515,29 +649,37 @@
         }
       }
     },
-    "userCreateMusicReq": {
+    "apiCreateMusicReq": {
       "type": "object",
       "properties": {
         "twit_id": {
           "type": "string"
         },
-        "mp3": {
+        "file": {
+          "type": "string",
+          "format": "byte"
+        },
+        "file_name": {
           "type": "string"
         }
       }
     },
-    "userCreatePhotoReq": {
+    "apiCreatePhotoReq": {
       "type": "object",
       "properties": {
         "twit_id": {
           "type": "string"
         },
-        "photo": {
+        "file": {
+          "type": "string",
+          "format": "byte"
+        },
+        "file_name": {
           "type": "string"
         }
       }
     },
-    "userCreateTwitReq": {
+    "apiCreateTwitReq": {
       "type": "object",
       "properties": {
         "user_id": {
@@ -557,7 +699,7 @@
         }
       }
     },
-    "userCreateUrlReq": {
+    "apiCreateUrlReq": {
       "type": "object",
       "properties": {
         "twit_id": {
@@ -568,21 +710,25 @@
         }
       }
     },
-    "userCreateVideoReq": {
+    "apiCreateVideoReq": {
       "type": "object",
       "properties": {
         "twit_id": {
           "type": "string"
         },
-        "video": {
+        "file": {
+          "type": "string",
+          "format": "byte"
+        },
+        "file_name": {
           "type": "string"
         }
       }
     },
-    "userEmpty": {
+    "apiEmpty": {
       "type": "object"
     },
-    "userLocationId": {
+    "apiLocationId": {
       "type": "object",
       "properties": {
         "id": {
@@ -590,7 +736,7 @@
         }
       }
     },
-    "userLocationInfo": {
+    "apiLocationInfo": {
       "type": "object",
       "properties": {
         "lat": {
@@ -601,7 +747,7 @@
         }
       }
     },
-    "userLoginReq": {
+    "apiLoginReq": {
       "type": "object",
       "properties": {
         "login": {
@@ -612,7 +758,7 @@
         }
       }
     },
-    "userLoginRes": {
+    "apiLoginRes": {
       "type": "object",
       "properties": {
         "id": {
@@ -626,15 +772,18 @@
         }
       }
     },
-    "userMusicId": {
+    "apiMusicId": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
+        },
+        "url": {
+          "type": "string"
         }
       }
     },
-    "userMusicInfo": {
+    "apiMusicInfo": {
       "type": "object",
       "properties": {
         "mp3": {
@@ -642,15 +791,18 @@
         }
       }
     },
-    "userPhotoId": {
+    "apiPhotoId": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
+        },
+        "url": {
+          "type": "string"
         }
       }
     },
-    "userPhotoInfo": {
+    "apiPhotoInfo": {
       "type": "object",
       "properties": {
         "photo": {
@@ -658,7 +810,7 @@
         }
       }
     },
-    "userTWitId": {
+    "apiTWitId": {
       "type": "object",
       "properties": {
         "id": {
@@ -666,7 +818,7 @@
         }
       }
     },
-    "userTwit": {
+    "apiTwit": {
       "type": "object",
       "properties": {
         "id": {
@@ -698,40 +850,40 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/userVideoInfo"
+            "$ref": "#/definitions/apiVideoInfo"
           }
         },
         "photos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/userPhotoInfo"
+            "$ref": "#/definitions/apiPhotoInfo"
           }
         },
         "musics": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/userMusicInfo"
+            "$ref": "#/definitions/apiMusicInfo"
           }
         },
         "locations": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/userLocationInfo"
+            "$ref": "#/definitions/apiLocationInfo"
           }
         },
         "urls": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/userUrlInfo"
+            "$ref": "#/definitions/apiUrlInfo"
           }
         }
       }
     },
-    "userTwitList": {
+    "apiTwitList": {
       "type": "object",
       "properties": {
         "twit_ids": {
@@ -742,7 +894,7 @@
         }
       }
     },
-    "userUrlId": {
+    "apiUrlId": {
       "type": "object",
       "properties": {
         "id": {
@@ -750,7 +902,7 @@
         }
       }
     },
-    "userUrlInfo": {
+    "apiUrlInfo": {
       "type": "object",
       "properties": {
         "url": {
@@ -758,19 +910,50 @@
         }
       }
     },
-    "userVideoId": {
+    "apiVideoId": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
+        },
+        "url": {
+          "type": "string"
         }
       }
     },
-    "userVideoInfo": {
+    "apiVideoInfo": {
       "type": "object",
       "properties": {
         "video": {
           "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
         }
       }
     }

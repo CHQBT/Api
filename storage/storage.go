@@ -73,4 +73,5 @@ type VideoStorage interface {
 type UserStorage interface {
 	CheckPassword(login, password string) (bool, error)
 	GetUserByID(id string) (*model.User, error)
+	GetUserByLogin(login string) (*model.User, error)
 }

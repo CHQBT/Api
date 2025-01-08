@@ -51,3 +51,18 @@ func (r *UsersRepo) GetUserByID(id string) (*model.User, error) {
 
 	return &user, nil
 }
+
+func (r *UsersRepo) GetUserByLogin(login string) (*model.User, error) {
+	var user model.User
+	query := `SELECT id, login, role FROM users WHERE login = $1 AND deleted_at = 0`
+
+	err := r.Db.QueryRow(query, login).Scan(&user.ID, &user.Login, &user.Role)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
+		return nil, err
+	}
+
+	return &user, nil
+}

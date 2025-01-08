@@ -1,6 +1,6 @@
 syntax = "proto3";
-package user;
-option go_package = "milliy/generated/user";
+package api;
+option go_package = "milliy/generated/api";
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
@@ -85,9 +85,14 @@ service TwitService {
         option (google.api.http) = {
             post: "/v1/twit/video"
             body: "*"
+            additional_bindings {
+                post: "/v1/twit/{twit_id}/video/upload"
+                body: "file"
+            }
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Create a new video"
+            description: "Upload a video file"
+            consumes: ["multipart/form-data"]
             security: {
                 security_requirement: {
                     key: "ApiKeyAuth"
@@ -101,9 +106,14 @@ service TwitService {
         option (google.api.http) = {
             post: "/v1/twit/photo"
             body: "*"
+            additional_bindings {
+                post: "/v1/twit/{twit_id}/photo/upload"
+                body: "file"
+            }
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Create a new photo"
+            description: "Upload a photo file"
+            consumes: ["multipart/form-data"]
             security: {
                 security_requirement: {
                     key: "ApiKeyAuth"
@@ -117,9 +127,14 @@ service TwitService {
         option (google.api.http) = {
             post: "/v1/twit/music"
             body: "*"
+            additional_bindings {
+                post: "/v1/twit/{twit_id}/music/upload"
+                body: "file"
+            }
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Create a new music"
+            description: "Upload a music file"
+            consumes: ["multipart/form-data"]
             security: {
                 security_requirement: {
                     key: "ApiKeyAuth"
@@ -231,29 +246,35 @@ message TwitList {
 
 message CreateVideoReq {
     string twit_id = 1;
-    string video = 2;
+    bytes file = 2;
+    string file_name = 3;
 }
 
 message VideoId {
     string id = 1;
+    string url = 2;
 }
 
 message CreatePhotoReq {
     string twit_id = 1;
-    string photo = 2;
+    bytes file = 2;
+    string file_name = 3;
 }
 
 message PhotoId {
     string id = 1;
+    string url = 2;
 }
 
 message CreateMusicReq {
     string twit_id = 1;
-    string mp3 = 2;
+    bytes file = 2;
+    string file_name = 3;
 }
 
 message MusicId {
     string id = 1;
+    string url = 2;
 }
 
 message CreateLocationReq {
@@ -273,4 +294,8 @@ message CreateUrlReq {
 
 message UrlId {
     string id = 1;
+}
+
+message FileUploadResponse {
+    string url = 1;
 } 

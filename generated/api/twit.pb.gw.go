@@ -2,11 +2,11 @@
 // source: api/twit.proto
 
 /*
-Package user is a reverse proxy.
+Package api is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package user
+package api
 
 import (
 	"context"
@@ -341,6 +341,62 @@ func local_request_TwitService_CreateVideo_0(ctx context.Context, marshaler runt
 	return msg, metadata, err
 }
 
+var filter_TwitService_CreateVideo_1 = &utilities.DoubleArray{Encoding: map[string]int{"file": 0, "twit_id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+
+func request_TwitService_CreateVideo_1(ctx context.Context, marshaler runtime.Marshaler, client TwitServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreateVideoReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.File); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["twit_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "twit_id")
+	}
+	protoReq.TwitId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "twit_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TwitService_CreateVideo_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.CreateVideo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TwitService_CreateVideo_1(ctx context.Context, marshaler runtime.Marshaler, server TwitServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreateVideoReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.File); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["twit_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "twit_id")
+	}
+	protoReq.TwitId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "twit_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TwitService_CreateVideo_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.CreateVideo(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 func request_TwitService_CreatePhoto_0(ctx context.Context, marshaler runtime.Marshaler, client TwitServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq CreatePhotoReq
@@ -365,6 +421,62 @@ func local_request_TwitService_CreatePhoto_0(ctx context.Context, marshaler runt
 	return msg, metadata, err
 }
 
+var filter_TwitService_CreatePhoto_1 = &utilities.DoubleArray{Encoding: map[string]int{"file": 0, "twit_id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+
+func request_TwitService_CreatePhoto_1(ctx context.Context, marshaler runtime.Marshaler, client TwitServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreatePhotoReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.File); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["twit_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "twit_id")
+	}
+	protoReq.TwitId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "twit_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TwitService_CreatePhoto_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.CreatePhoto(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TwitService_CreatePhoto_1(ctx context.Context, marshaler runtime.Marshaler, server TwitServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreatePhotoReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.File); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["twit_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "twit_id")
+	}
+	protoReq.TwitId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "twit_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TwitService_CreatePhoto_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.CreatePhoto(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 func request_TwitService_CreateMusic_0(ctx context.Context, marshaler runtime.Marshaler, client TwitServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var (
 		protoReq CreateMusicReq
@@ -383,6 +495,62 @@ func local_request_TwitService_CreateMusic_0(ctx context.Context, marshaler runt
 		metadata runtime.ServerMetadata
 	)
 	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.CreateMusic(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+var filter_TwitService_CreateMusic_1 = &utilities.DoubleArray{Encoding: map[string]int{"file": 0, "twit_id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+
+func request_TwitService_CreateMusic_1(ctx context.Context, marshaler runtime.Marshaler, client TwitServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreateMusicReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.File); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["twit_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "twit_id")
+	}
+	protoReq.TwitId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "twit_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TwitService_CreateMusic_1); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := client.CreateMusic(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_TwitService_CreateMusic_1(ctx context.Context, marshaler runtime.Marshaler, server TwitServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq CreateMusicReq
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq.File); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	val, ok := pathParams["twit_id"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "twit_id")
+	}
+	protoReq.TwitId, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "twit_id", err)
+	}
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_TwitService_CreateMusic_1); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 	msg, err := server.CreateMusic(ctx, &protoReq)
@@ -449,7 +617,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/CreateTwit", runtime.WithHTTPPathPattern("/v1/twit"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateTwit", runtime.WithHTTPPathPattern("/v1/twit"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -469,7 +637,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/GetTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/GetTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -489,7 +657,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/GetAllTwits", runtime.WithHTTPPathPattern("/v1/twits"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/GetAllTwits", runtime.WithHTTPPathPattern("/v1/twits"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -509,7 +677,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/GetTwitsByType", runtime.WithHTTPPathPattern("/v1/twits/type/{type}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/GetTwitsByType", runtime.WithHTTPPathPattern("/v1/twits/type/{type}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -529,7 +697,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/GetMostViewedTwits", runtime.WithHTTPPathPattern("/v1/twits/most-viewed"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/GetMostViewedTwits", runtime.WithHTTPPathPattern("/v1/twits/most-viewed"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -549,7 +717,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/GetLatestTwits", runtime.WithHTTPPathPattern("/v1/twits/latest"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/GetLatestTwits", runtime.WithHTTPPathPattern("/v1/twits/latest"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -569,7 +737,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/SearchTwits", runtime.WithHTTPPathPattern("/v1/twits/search"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/SearchTwits", runtime.WithHTTPPathPattern("/v1/twits/search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -589,7 +757,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/DeleteTwit", runtime.WithHTTPPathPattern("/v1/twits/delete/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/DeleteTwit", runtime.WithHTTPPathPattern("/v1/twits/delete/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -609,7 +777,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/AddCountToTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/AddCountToTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -629,7 +797,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/CreateVideo", runtime.WithHTTPPathPattern("/v1/twit/video"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateVideo", runtime.WithHTTPPathPattern("/v1/twit/video"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -643,13 +811,33 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TwitService_CreateVideo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TwitService_CreateVideo_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateVideo", runtime.WithHTTPPathPattern("/v1/twit/{twit_id}/video/upload"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TwitService_CreateVideo_1(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TwitService_CreateVideo_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_TwitService_CreatePhoto_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/CreatePhoto", runtime.WithHTTPPathPattern("/v1/twit/photo"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreatePhoto", runtime.WithHTTPPathPattern("/v1/twit/photo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -663,13 +851,33 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TwitService_CreatePhoto_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TwitService_CreatePhoto_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreatePhoto", runtime.WithHTTPPathPattern("/v1/twit/{twit_id}/photo/upload"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TwitService_CreatePhoto_1(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TwitService_CreatePhoto_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_TwitService_CreateMusic_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/CreateMusic", runtime.WithHTTPPathPattern("/v1/twit/music"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateMusic", runtime.WithHTTPPathPattern("/v1/twit/music"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -683,13 +891,33 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TwitService_CreateMusic_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TwitService_CreateMusic_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateMusic", runtime.WithHTTPPathPattern("/v1/twit/{twit_id}/music/upload"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_TwitService_CreateMusic_1(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TwitService_CreateMusic_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_TwitService_CreateLocation_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/CreateLocation", runtime.WithHTTPPathPattern("/v1/twit/location"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateLocation", runtime.WithHTTPPathPattern("/v1/twit/location"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -709,7 +937,7 @@ func RegisterTwitServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/user.TwitService/CreateUrl", runtime.WithHTTPPathPattern("/v1/twit/url"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/api.TwitService/CreateUrl", runtime.WithHTTPPathPattern("/v1/twit/url"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -767,7 +995,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/CreateTwit", runtime.WithHTTPPathPattern("/v1/twit"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateTwit", runtime.WithHTTPPathPattern("/v1/twit"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -784,7 +1012,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/GetTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/GetTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -801,7 +1029,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/GetAllTwits", runtime.WithHTTPPathPattern("/v1/twits"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/GetAllTwits", runtime.WithHTTPPathPattern("/v1/twits"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -818,7 +1046,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/GetTwitsByType", runtime.WithHTTPPathPattern("/v1/twits/type/{type}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/GetTwitsByType", runtime.WithHTTPPathPattern("/v1/twits/type/{type}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -835,7 +1063,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/GetMostViewedTwits", runtime.WithHTTPPathPattern("/v1/twits/most-viewed"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/GetMostViewedTwits", runtime.WithHTTPPathPattern("/v1/twits/most-viewed"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -852,7 +1080,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/GetLatestTwits", runtime.WithHTTPPathPattern("/v1/twits/latest"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/GetLatestTwits", runtime.WithHTTPPathPattern("/v1/twits/latest"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -869,7 +1097,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/SearchTwits", runtime.WithHTTPPathPattern("/v1/twits/search"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/SearchTwits", runtime.WithHTTPPathPattern("/v1/twits/search"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -886,7 +1114,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/DeleteTwit", runtime.WithHTTPPathPattern("/v1/twits/delete/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/DeleteTwit", runtime.WithHTTPPathPattern("/v1/twits/delete/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -903,7 +1131,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/AddCountToTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/AddCountToTwit", runtime.WithHTTPPathPattern("/v1/twit/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -920,7 +1148,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/CreateVideo", runtime.WithHTTPPathPattern("/v1/twit/video"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateVideo", runtime.WithHTTPPathPattern("/v1/twit/video"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -933,11 +1161,28 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TwitService_CreateVideo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TwitService_CreateVideo_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateVideo", runtime.WithHTTPPathPattern("/v1/twit/{twit_id}/video/upload"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TwitService_CreateVideo_1(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TwitService_CreateVideo_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_TwitService_CreatePhoto_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/CreatePhoto", runtime.WithHTTPPathPattern("/v1/twit/photo"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreatePhoto", runtime.WithHTTPPathPattern("/v1/twit/photo"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -950,11 +1195,28 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TwitService_CreatePhoto_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TwitService_CreatePhoto_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreatePhoto", runtime.WithHTTPPathPattern("/v1/twit/{twit_id}/photo/upload"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TwitService_CreatePhoto_1(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TwitService_CreatePhoto_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_TwitService_CreateMusic_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/CreateMusic", runtime.WithHTTPPathPattern("/v1/twit/music"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateMusic", runtime.WithHTTPPathPattern("/v1/twit/music"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -967,11 +1229,28 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		}
 		forward_TwitService_CreateMusic_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
+	mux.Handle(http.MethodPost, pattern_TwitService_CreateMusic_1, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateMusic", runtime.WithHTTPPathPattern("/v1/twit/{twit_id}/music/upload"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_TwitService_CreateMusic_1(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_TwitService_CreateMusic_1(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
 	mux.Handle(http.MethodPost, pattern_TwitService_CreateLocation_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/CreateLocation", runtime.WithHTTPPathPattern("/v1/twit/location"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateLocation", runtime.WithHTTPPathPattern("/v1/twit/location"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -988,7 +1267,7 @@ func RegisterTwitServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/user.TwitService/CreateUrl", runtime.WithHTTPPathPattern("/v1/twit/url"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/api.TwitService/CreateUrl", runtime.WithHTTPPathPattern("/v1/twit/url"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1015,8 +1294,11 @@ var (
 	pattern_TwitService_DeleteTwit_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "twits", "delete", "id"}, ""))
 	pattern_TwitService_AddCountToTwit_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"v1", "twit", "id"}, ""))
 	pattern_TwitService_CreateVideo_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "twit", "video"}, ""))
+	pattern_TwitService_CreateVideo_1        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "twit", "twit_id", "video", "upload"}, ""))
 	pattern_TwitService_CreatePhoto_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "twit", "photo"}, ""))
+	pattern_TwitService_CreatePhoto_1        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "twit", "twit_id", "photo", "upload"}, ""))
 	pattern_TwitService_CreateMusic_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "twit", "music"}, ""))
+	pattern_TwitService_CreateMusic_1        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3, 2, 4}, []string{"v1", "twit", "twit_id", "music", "upload"}, ""))
 	pattern_TwitService_CreateLocation_0     = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "twit", "location"}, ""))
 	pattern_TwitService_CreateUrl_0          = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "twit", "url"}, ""))
 )
@@ -1032,8 +1314,11 @@ var (
 	forward_TwitService_DeleteTwit_0         = runtime.ForwardResponseMessage
 	forward_TwitService_AddCountToTwit_0     = runtime.ForwardResponseMessage
 	forward_TwitService_CreateVideo_0        = runtime.ForwardResponseMessage
+	forward_TwitService_CreateVideo_1        = runtime.ForwardResponseMessage
 	forward_TwitService_CreatePhoto_0        = runtime.ForwardResponseMessage
+	forward_TwitService_CreatePhoto_1        = runtime.ForwardResponseMessage
 	forward_TwitService_CreateMusic_0        = runtime.ForwardResponseMessage
+	forward_TwitService_CreateMusic_1        = runtime.ForwardResponseMessage
 	forward_TwitService_CreateLocation_0     = runtime.ForwardResponseMessage
 	forward_TwitService_CreateUrl_0          = runtime.ForwardResponseMessage
 )

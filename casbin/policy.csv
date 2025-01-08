@@ -1,0 +1,2 @@
+p, admin, /v1/twit*, *
+p, admin, /v1/user*, * 

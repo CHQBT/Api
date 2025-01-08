@@ -4,7 +4,7 @@
 // - protoc             v5.27.1
 // source: api/twit.proto
 
-package user
+package api
 
 import (
 	context "context"
@@ -19,20 +19,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TwitService_CreateTwit_FullMethodName         = "/user.TwitService/CreateTwit"
-	TwitService_GetTwit_FullMethodName            = "/user.TwitService/GetTwit"
-	TwitService_GetAllTwits_FullMethodName        = "/user.TwitService/GetAllTwits"
-	TwitService_GetTwitsByType_FullMethodName     = "/user.TwitService/GetTwitsByType"
-	TwitService_GetMostViewedTwits_FullMethodName = "/user.TwitService/GetMostViewedTwits"
-	TwitService_GetLatestTwits_FullMethodName     = "/user.TwitService/GetLatestTwits"
-	TwitService_SearchTwits_FullMethodName        = "/user.TwitService/SearchTwits"
-	TwitService_DeleteTwit_FullMethodName         = "/user.TwitService/DeleteTwit"
-	TwitService_AddCountToTwit_FullMethodName     = "/user.TwitService/AddCountToTwit"
-	TwitService_CreateVideo_FullMethodName        = "/user.TwitService/CreateVideo"
-	TwitService_CreatePhoto_FullMethodName        = "/user.TwitService/CreatePhoto"
-	TwitService_CreateMusic_FullMethodName        = "/user.TwitService/CreateMusic"
-	TwitService_CreateLocation_FullMethodName     = "/user.TwitService/CreateLocation"
-	TwitService_CreateUrl_FullMethodName          = "/user.TwitService/CreateUrl"
+	TwitService_CreateTwit_FullMethodName         = "/api.TwitService/CreateTwit"
+	TwitService_GetTwit_FullMethodName            = "/api.TwitService/GetTwit"
+	TwitService_GetAllTwits_FullMethodName        = "/api.TwitService/GetAllTwits"
+	TwitService_GetTwitsByType_FullMethodName     = "/api.TwitService/GetTwitsByType"
+	TwitService_GetMostViewedTwits_FullMethodName = "/api.TwitService/GetMostViewedTwits"
+	TwitService_GetLatestTwits_FullMethodName     = "/api.TwitService/GetLatestTwits"
+	TwitService_SearchTwits_FullMethodName        = "/api.TwitService/SearchTwits"
+	TwitService_DeleteTwit_FullMethodName         = "/api.TwitService/DeleteTwit"
+	TwitService_AddCountToTwit_FullMethodName     = "/api.TwitService/AddCountToTwit"
+	TwitService_CreateVideo_FullMethodName        = "/api.TwitService/CreateVideo"
+	TwitService_CreatePhoto_FullMethodName        = "/api.TwitService/CreatePhoto"
+	TwitService_CreateMusic_FullMethodName        = "/api.TwitService/CreateMusic"
+	TwitService_CreateLocation_FullMethodName     = "/api.TwitService/CreateLocation"
+	TwitService_CreateUrl_FullMethodName          = "/api.TwitService/CreateUrl"
 )
 
 // TwitServiceClient is the client API for TwitService service.
@@ -550,7 +550,7 @@ func _TwitService_CreateUrl_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TwitService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.TwitService",
+	ServiceName: "api.TwitService",
 	HandlerType: (*TwitServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

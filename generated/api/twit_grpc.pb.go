@@ -48,8 +48,11 @@ type TwitServiceClient interface {
 	SearchTwits(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*TwitList, error)
 	DeleteTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Empty, error)
 	AddCountToTwit(ctx context.Context, in *TWitId, opts ...grpc.CallOption) (*Empty, error)
+	// Consolidated single API for Video Upload
 	CreateVideo(ctx context.Context, in *CreateVideoReq, opts ...grpc.CallOption) (*VideoId, error)
+	// Consolidated single API for Photo Upload
 	CreatePhoto(ctx context.Context, in *CreatePhotoReq, opts ...grpc.CallOption) (*PhotoId, error)
+	// Consolidated single API for Music Upload
 	CreateMusic(ctx context.Context, in *CreateMusicReq, opts ...grpc.CallOption) (*MusicId, error)
 	CreateLocation(ctx context.Context, in *CreateLocationReq, opts ...grpc.CallOption) (*LocationId, error)
 	CreateUrl(ctx context.Context, in *CreateUrlReq, opts ...grpc.CallOption) (*UrlId, error)
@@ -216,8 +219,11 @@ type TwitServiceServer interface {
 	SearchTwits(context.Context, *SearchRequest) (*TwitList, error)
 	DeleteTwit(context.Context, *TWitId) (*Empty, error)
 	AddCountToTwit(context.Context, *TWitId) (*Empty, error)
+	// Consolidated single API for Video Upload
 	CreateVideo(context.Context, *CreateVideoReq) (*VideoId, error)
+	// Consolidated single API for Photo Upload
 	CreatePhoto(context.Context, *CreatePhotoReq) (*PhotoId, error)
+	// Consolidated single API for Music Upload
 	CreateMusic(context.Context, *CreateMusicReq) (*MusicId, error)
 	CreateLocation(context.Context, *CreateLocationReq) (*LocationId, error)
 	CreateUrl(context.Context, *CreateUrlReq) (*UrlId, error)

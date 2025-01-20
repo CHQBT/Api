@@ -77,22 +77,18 @@ service TwitService {
 
     rpc AddCountToTwit(TWitId) returns (Empty){
         option (google.api.http) = {
-            post: "/v1/twit/{id}"
+            post: "/v1/twit-count/{id}"
         };
     }
 
+    // Consolidated single API for Video Upload
     rpc CreateVideo(CreateVideoReq) returns (VideoId) {
         option (google.api.http) = {
             post: "/v1/twit/video"
             body: "*"
-            additional_bindings {
-                post: "/v1/twit/{twit_id}/video/upload"
-                body: "file"
-            }
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Upload a video file"
-            consumes: ["multipart/form-data"]
+            description: "delete a twit"
             security: {
                 security_requirement: {
                     key: "ApiKeyAuth"
@@ -102,18 +98,14 @@ service TwitService {
         };
     }
 
+    // Consolidated single API for Photo Upload
     rpc CreatePhoto(CreatePhotoReq) returns (PhotoId) {
         option (google.api.http) = {
             post: "/v1/twit/photo"
             body: "*"
-            additional_bindings {
-                post: "/v1/twit/{twit_id}/photo/upload"
-                body: "file"
-            }
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Upload a photo file"
-            consumes: ["multipart/form-data"]
+            description: "delete a twit"
             security: {
                 security_requirement: {
                     key: "ApiKeyAuth"
@@ -123,18 +115,14 @@ service TwitService {
         };
     }
 
+    // Consolidated single API for Music Upload
     rpc CreateMusic(CreateMusicReq) returns (MusicId) {
         option (google.api.http) = {
             post: "/v1/twit/music"
             body: "*"
-            additional_bindings {
-                post: "/v1/twit/{twit_id}/music/upload"
-                body: "file"
-            }
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Upload a music file"
-            consumes: ["multipart/form-data"]
+            description: "delete a twit"
             security: {
                 security_requirement: {
                     key: "ApiKeyAuth"

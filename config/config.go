@@ -30,6 +30,7 @@ type RedisConfig struct {
 
 type ServerConfig struct {
 	HTTP_PORT string
+	GRPC_PORT string
 }
 
 type TokensConfig struct {
@@ -58,6 +59,7 @@ func Load() *Config {
 		},
 		Server: ServerConfig{
 			HTTP_PORT: cast.ToString(coalesce("HTTP_PORT", ":1234")),
+			GRPC_PORT: cast.ToString(coalesce("GRPC_PORT", ":5678")),
 		},
 		Token: TokensConfig{
 			ACCES_KEY: cast.ToString(coalesce("ACCES_KEY", "access_key")),
@@ -66,7 +68,6 @@ func Load() *Config {
 			MINIO_ENDPOINT:          cast.ToString(coalesce("MINIO_ENDPOINT", "access_key")),
 			MINIO_ACCESS_KEY_ID:     cast.ToString(coalesce("MINIO_ACCESS_KEY_ID", "access_key")),
 			MINIO_SECRET_ACCESS_KEY: cast.ToString(coalesce("MINIO_SECRET_ACCESS_KEY", "access_key")),
-			MINIO_BUCKET_NAME:       cast.ToString(coalesce("MINIO_BUCKET_NAME", "access_key")),
 		},
 	}
 }

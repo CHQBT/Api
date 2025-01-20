@@ -17,6 +17,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/rs/cors"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -38,7 +39,7 @@ func main() {
 	userSvc := service.NewUserService(storage)
 
 	// Start gRPC server
-	lis, err := net.Listen("tcp", ":9090")
+	lis, err := net.Listen("tcp", cfg.Server.GRPC_PORT)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -49,7 +50,7 @@ func main() {
 	pb.RegisterUserServiceServer(grpcServer, userSvc)
 
 	go func() {
-		log.Printf("gRPC server listening on :9090")
+		log.Printf("Starting grpc server")
 		if err := grpcServer.Serve(lis); err != nil {
 			log.Fatalf("failed to serve: %v", err)
 		}
@@ -59,11 +60,11 @@ func main() {
 	ctx := context.Background()
 	mux := runtime.NewServeMux()
 
-	opts := []grpc.DialOption{grpc.WithInsecure()}
-	if err := pb.RegisterTwitServiceHandlerFromEndpoint(ctx, mux, "localhost:9090", opts); err != nil {
+	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+	if err := pb.RegisterTwitServiceHandlerFromEndpoint(ctx, mux, cfg.Server.GRPC_PORT, opts); err != nil {
 		log.Fatalf("Failed to register twit gateway: %v", err)
 	}
-	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, "localhost:9090", opts); err != nil {
+	if err := pb.RegisterUserServiceHandlerFromEndpoint(ctx, mux, cfg.Server.GRPC_PORT, opts); err != nil {
 		log.Fatalf("Failed to register user gateway: %v", err)
 	}
 
@@ -86,7 +87,7 @@ func main() {
 	)
 
 	// Start HTTP server
-	httpPort := fmt.Sprintf(":%s", cfg.Server.HTTP_PORT)
+	httpPort := fmt.Sprintf("%s", cfg.Server.HTTP_PORT)
 	log.Printf("HTTP server listening on %s", httpPort)
 	log.Printf("Swagger UI available at http://localhost%s/swagger/", httpPort)
 	if err := http.ListenAndServe(httpPort, handler); err != nil {

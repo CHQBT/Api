@@ -2,8 +2,10 @@ package twit
 
 import (
 	"fmt"
+	"log"
 	"milliy/api/auth"
 	"milliy/model"
+	"milliy/upload"
 	"net/http"
 	"strconv"
 
@@ -336,6 +338,10 @@ func (h *newTwits) CreateUrl(c *gin.Context) {
 // @Router /v1/twit/photo/{twit_id} [post]
 func (h *newTwits) CreatePhoto(c *gin.Context) {
 	h.Log.Info("UploadProductPhoto called")
+	uploader, err := upload.NewMinioUploader()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	Id := c.Param("twit_id")
 	if len(Id) == 0 {
@@ -353,7 +359,7 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 	fmt.Println(file)
 	defer file.Close()
 	fmt.Println("minioga kirvoti")
-	url, err := h.MINIO.UploadFile("photos", file, header)
+	url, err := uploader.UploadFile("photos", file, header)
 	if err != nil {
 		h.Log.Error("Error uploading the file to MinIO", "error", err)
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading the file to MinIO"})

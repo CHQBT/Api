@@ -31,12 +31,11 @@ func NewMinioUploader() (*MinioUploader, error) {
 
 func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, header *multipart.FileHeader) (string, error) {
 	ctx := context.Background()
-	fmt.Println(bucketName, file)
-	fmt.Println("\n\n\n1\n\n\n\n")
 
 	// Generate unique filename
 	fileExt := filepath.Ext(header.Filename)
 	newFileName := uuid.NewString() + fileExt
+	fmt.Println(bucketName, header.Size, newFileName)
 
 	// Upload the file
 	_, err := m.client.PutObject(ctx, "photos", newFileName, file, header.Size, minio.PutObjectOptions{

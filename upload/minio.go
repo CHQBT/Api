@@ -31,16 +31,19 @@ func NewMinioUploader() (*MinioUploader, error) {
 
 func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, header *multipart.FileHeader) (string, error) {
 	ctx := context.Background()
+	fmt.Println("\n\n\n1\n\n\n\n")
 
 	// Generate unique filename
 	fileExt := filepath.Ext(header.Filename)
+	fmt.Println("\n\n\n2\n\n\n\n")
 	newFileName := uuid.NewString() + fileExt
+	fmt.Println("\n\n\n3\n\n\n\n")
 
 	// Upload the file
 	_, err := m.client.PutObject(ctx, bucketName, newFileName, file, header.Size, minio.PutObjectOptions{
 		ContentType: getContentType(fileExt),
 	})
-	fmt.Println("\n\n\n1\n\n\n\n")
+	fmt.Println("\n\n\n4\n\n\n\n")
 	if err != nil {
 		return "", fmt.Errorf("failed to upload file: %v", err)
 	}

@@ -40,6 +40,7 @@ func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, heade
 	_, err := m.client.PutObject(ctx, bucketName, newFileName, file, header.Size, minio.PutObjectOptions{
 		ContentType: getContentType(fileExt),
 	})
+	fmt.Println("\n\n\n1\n\n\n\n")
 	if err != nil {
 		return "", fmt.Errorf("failed to upload file: %v", err)
 	}

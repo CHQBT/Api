@@ -31,6 +31,8 @@ func NewMinioUploader() (*MinioUploader, error) {
 
 func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, header *multipart.FileHeader) (string, error) {
 	ctx := context.Background()
+	fmt.Println(bucketName, file, header)
+	fmt.Println("\n\n\n1\n\n\n\n")
 
 	// Generate unique filename
 	fileExt := filepath.Ext(header.Filename)
@@ -40,7 +42,7 @@ func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, heade
 	_, err := m.client.PutObject(ctx, "photos", newFileName, file, header.Size, minio.PutObjectOptions{
 		ContentType: getContentType(fileExt),
 	})
-	fmt.Println("\n\n\n4\n\n\n\n")
+
 	if err != nil {
 		return "", fmt.Errorf("failed to upload file: %v", err)
 	}

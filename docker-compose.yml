@@ -35,9 +35,7 @@ services:
     container_name: api-gateway
     build: .
     depends_on:
-      postgres-db2:
-        condition: service_healthy
-      kafka:
+      postgres-db:
         condition: service_healthy
     ports:
       - "4444:4444"

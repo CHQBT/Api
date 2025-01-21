@@ -1,6 +1,7 @@
 package twit
 
 import (
+	"fmt"
 	"milliy/api/auth"
 	"milliy/model"
 	"net/http"
@@ -351,6 +352,7 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 		return
 	}
 	defer file.Close()
+	fmt.Println("minioga kirvoti")
 	url, err := h.MINIO.UploadFile("photos", file, header)
 	if err != nil {
 		h.Log.Error("Error uploading the file to MinIO", "error", err)

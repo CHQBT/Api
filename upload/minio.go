@@ -31,7 +31,7 @@ func NewMinioUploader() (*MinioUploader, error) {
 
 func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, header *multipart.FileHeader) (string, error) {
 	ctx := context.Background()
-	fmt.Println(bucketName, file, header)
+	fmt.Println(bucketName, file)
 	fmt.Println("\n\n\n1\n\n\n\n")
 
 	// Generate unique filename

@@ -382,8 +382,6 @@ paths:
       - TWIT API
   /v1/twit/photo/{twit_id}:
     post:
-      consumes:
-      - multipart/form-data
       description: Upload Twit Photo
       parameters:
       - description: twit_id

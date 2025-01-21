@@ -324,9 +324,6 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Upload Twit Photo",
-                "consumes": [
-                    "multipart/form-data"
-                ],
                 "tags": [
                     "TWIT API"
                 ],

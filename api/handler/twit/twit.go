@@ -1,13 +1,19 @@
 package twit
 
 import (
+	"context"
 	"fmt"
 	"milliy/api/auth"
+	"milliy/config"
 	"milliy/model"
 	"net/http"
+	"path/filepath"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
 // CreateTwit godoc
@@ -350,15 +356,65 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving the file"})
 		return
 	}
-	fmt.Println(file)
+
 	defer file.Close()
-	fmt.Println("minioga kirvoti")
-	url, err := h.MINIO.UploadFile("photos", file, header)
+
+	// url, err := h.MINIO.UploadFile("photos", file, header)
+	// if err != nil {
+	// 	h.Log.Error("Error uploading the file to MinIO", "error", err)
+	// 	c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading the file to MinIO"})
+	// 	return
+	// }
+	ctx := context.Background()
+	bucketName := "photos"
+
+	// Generate unique filename
+	fileExt := filepath.Ext(header.Filename)
+	newFileName := uuid.NewString() + fileExt
+	fmt.Println(bucketName, header.Size, newFileName)
+	cfg := config.Load()
+	minioClient, err := minio.New(cfg.Minio.MINIO_ENDPOINT, &minio.Options{
+		Creds:  credentials.NewStaticV4(cfg.Minio.MINIO_ACCESS_KEY_ID, cfg.Minio.MINIO_SECRET_ACCESS_KEY, ""),
+		Secure: false,
+	})
 	if err != nil {
-		h.Log.Error("Error uploading the file to MinIO", "error", err)
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading the file to MinIO"})
+		c.AbortWithError(500, err)
 		return
 	}
+	// Upload the file
+	_, err = minioClient.PutObject(context.Background(), "questions", newFileName, file, header.Size, minio.PutObjectOptions{
+		ContentType: "image/jpeg",
+	})
+
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
+
+	// Set bucket policy for public access
+	policy := fmt.Sprintf(`{
+		"Version": "2012-10-17",
+		"Statement": [
+			{
+				"Effect": "Allow",
+				"Principal": {
+					"AWS": ["*"]
+				},
+				"Action": ["s3:GetObject"],
+				"Resource": ["arn:aws:s3:::%s/*"]
+			}
+		]
+	}`, bucketName)
+
+	err = minioClient.SetBucketPolicy(ctx, bucketName, policy)
+	if err != nil {
+		c.AbortWithError(500, err)
+		return
+	}
+
+	// Generate URL
+	url := fmt.Sprintf("http://%s/%s/%s", config.Load().Minio.MINIO_ENDPOINT, bucketName, newFileName)
+	fmt.Println("miniodan chiqvoti")
 	photo_id, err := h.Twit.CreatePhoto(&model.CreatePhotoRequest{
 		TwitID: Id,
 		Photo:  url,

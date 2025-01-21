@@ -385,7 +385,7 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 	}
 	// Upload the file
 
-	_, err = minioClient.PutObject(context.Background(), "questions", newFileName, file, header.Size, minio.PutObjectOptions{
+	_, err = minioClient.PutObject(context.Background(), bucketName, newFileName, file, header.Size, minio.PutObjectOptions{
 		ContentType: "image/jpeg",
 	})
 

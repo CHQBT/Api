@@ -21,9 +21,10 @@ func NewTwitsMethods(
 	log *slog.Logger,
 	MINIO *upload.MinioUploader) NewTwit {
 	return &newTwits{
-		User: User,
-		Twit: Twit,
-		Log:  log,
+		User:  User,
+		Twit:  Twit,
+		Log:   log,
+		MINIO: MINIO,
 	}
 }
 

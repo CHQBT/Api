@@ -417,9 +417,9 @@ paths:
       description: it will search twit by keyword from twit text and twit title and
         publisher-name
       parameters:
-      - description: keywoard
+      - description: keyword
         in: query
-        name: keywoard
+        name: keyword
         type: string
       responses:
         "200":

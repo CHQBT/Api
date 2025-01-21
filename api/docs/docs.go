@@ -376,8 +376,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "keywoard",
-                        "name": "keywoard",
+                        "description": "keyword",
+                        "name": "keyword",
                         "in": "query"
                     }
                 ],

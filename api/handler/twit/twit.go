@@ -242,7 +242,7 @@ func (h *newTwits) GetLatestTwits(c *gin.Context) {
 // @Summary search twit by keyword from twit text and twit title and publisher-name
 // @Description it will search twit by keyword from twit text and twit title and publisher-name
 // @Tags TWIT API
-// @Param keywoard query string false "keywoard"
+// @Param keyword query string false "keyword"
 // @Success 200 {object} []string
 // @Failure 400 {object} string "Invalid data"
 // @Failure 500 {object} string "Server error"

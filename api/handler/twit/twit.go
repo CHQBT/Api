@@ -373,23 +373,24 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 	newFileName := uuid.NewString() + fileExt
 	fmt.Println(bucketName, header.Size, newFileName)
 	cfg := config.Load()
-	fmt.Println("/n/n/n1/n/n/n")
+
 	minioClient, err := minio.New(cfg.Minio.MINIO_ENDPOINT, &minio.Options{
 		Creds:  credentials.NewStaticV4(cfg.Minio.MINIO_ACCESS_KEY_ID, cfg.Minio.MINIO_SECRET_ACCESS_KEY, ""),
 		Secure: false,
 	})
 	if err != nil {
+		h.Log.Error("Error initializing MinIO client", "error", err)
 		c.AbortWithError(500, err)
 		return
 	}
 	// Upload the file
-	fmt.Println("/n/n/n2/n/n/n")
+
 	_, err = minioClient.PutObject(context.Background(), "questions", newFileName, file, header.Size, minio.PutObjectOptions{
 		ContentType: "image/jpeg",
 	})
-	fmt.Println("/n/n/n3/n/n/n")
 
 	if err != nil {
+		h.Log.Error("Error uploading the file to MinIO", "error", err)
 		c.AbortWithError(500, err)
 		return
 	}
@@ -411,6 +412,7 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 
 	err = minioClient.SetBucketPolicy(ctx, bucketName, policy)
 	if err != nil {
+		h.Log.Error("Error setting bucket policy", "error", err)
 		c.AbortWithError(500, err)
 		return
 	}

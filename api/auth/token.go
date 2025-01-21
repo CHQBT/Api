@@ -2,22 +2,26 @@ package auth
 
 import (
 	"milliy/config"
-	pb "milliy/generated/api"
+	"milliy/model"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-func GeneratedRefreshJWTToken(req *pb.LoginRes) (string, error) {
-	conf := config.Load().Token.ACCES_KEY
+var (
+	tokenMain = config.Load().Token.ACCES_KEY
+)
+
+func GeneratedRefreshJWTToken(req *model.User) (string, error) {
 	token := *jwt.New(jwt.SigningMethodHS256)
+	//payload
 	claims := token.Claims.(jwt.MapClaims)
-	claims["user_id"] = req.Id
+	claims["user_id"] = req.ID
 	claims["role"] = req.Role
 	claims["iat"] = time.Now().Unix()
 	claims["exp"] = time.Now().AddDate(0, 6, 0).Unix()
 
-	newToken, err := token.SignedString([]byte(conf))
+	newToken, err := token.SignedString([]byte(tokenMain))
 	if err != nil {
 		return "", err
 	}
@@ -35,10 +39,10 @@ func ValidateRefreshToken(tokenStr string) (bool, error) {
 
 func ExtractRefreshClaim(tokenStr string) (*jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenStr, func(t *jwt.Token) (interface{}, error) {
-		return []byte(config.Load().Token.ACCES_KEY), nil
+		return []byte(tokenMain), nil
 	})
 
-	if err != nil {
+	if err != nil || !token.Valid {
 		return nil, err
 	}
 
@@ -50,15 +54,14 @@ func ExtractRefreshClaim(tokenStr string) (*jwt.MapClaims, error) {
 	return &claims, nil
 }
 
-func GetUserIdFromRefreshToken(token string) (string, string, error) {
-	refreshToken, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) { return []byte(config.Load().Token.ACCES_KEY), nil })
-	if err != nil || !refreshToken.Valid {
-		return "", "", err
-	}
-	claims, ok := refreshToken.Claims.(jwt.MapClaims)
-	if !ok {
+func GetUserInfoFromRefreshToken(refreshTokenString string) (string, string, error) {
+	claims, err := ExtractRefreshClaim(refreshTokenString)
+	if err != nil {
 		return "", "", err
 	}
 
-	return claims["user_id"].(string), claims["role"].(string), nil
+	userID := (*claims)["user_id"].(string)
+	Role := (*claims)["role"].(string)
+
+	return userID, Role, nil
 }

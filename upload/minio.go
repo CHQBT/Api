@@ -4,9 +4,8 @@ import (
 	"context"
 	"fmt"
 	"milliy/config"
+	"mime/multipart"
 	"path/filepath"
-
-	"bytes"
 
 	"github.com/google/uuid"
 	"github.com/minio/minio-go/v7"
@@ -30,15 +29,15 @@ func NewMinioUploader() (*MinioUploader, error) {
 	return &MinioUploader{client: client}, nil
 }
 
-func (m *MinioUploader) UploadFile(bucketName string, fileBytes []byte, fileName string) (string, error) {
+func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, header *multipart.FileHeader) (string, error) {
 	ctx := context.Background()
 
 	// Generate unique filename
-	fileExt := filepath.Ext(fileName)
+	fileExt := filepath.Ext(header.Filename)
 	newFileName := uuid.NewString() + fileExt
 
 	// Upload the file
-	_, err := m.client.PutObject(ctx, bucketName, newFileName, bytes.NewReader(fileBytes), int64(len(fileBytes)), minio.PutObjectOptions{
+	_, err := m.client.PutObject(ctx, bucketName, newFileName, file, header.Size, minio.PutObjectOptions{
 		ContentType: getContentType(fileExt),
 	})
 	if err != nil {

@@ -1,0 +1,539 @@
+definitions:
+  model.CreateLocationRequest:
+    properties:
+      lat:
+        type: string
+      lon:
+        type: string
+      twit_id:
+        type: string
+    type: object
+  model.CreateTwitRequestApi:
+    properties:
+      publisher_fio:
+        type: string
+      texts:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+    type: object
+  model.CreateURLRequest:
+    properties:
+      twit_id:
+        type: string
+      url:
+        type: string
+    type: object
+  model.LocationInfo:
+    properties:
+      latitude:
+        type: string
+      location_id:
+        type: string
+      longitude:
+        type: string
+    type: object
+  model.MusicInfo:
+    properties:
+      music_id:
+        type: string
+      music_url:
+        type: string
+    type: object
+  model.PhotoInfo:
+    properties:
+      photo_id:
+        type: string
+      photo_url:
+        type: string
+    type: object
+  model.TwitResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      locations:
+        items:
+          $ref: '#/definitions/model.LocationInfo'
+        type: array
+      musics:
+        items:
+          $ref: '#/definitions/model.MusicInfo'
+        type: array
+      photos:
+        items:
+          $ref: '#/definitions/model.PhotoInfo'
+        type: array
+      publisher_fio:
+        type: string
+      readers_count:
+        type: integer
+      texts:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+      urls:
+        items:
+          $ref: '#/definitions/model.UrlInfo'
+        type: array
+      user_id:
+        type: string
+      videos:
+        items:
+          $ref: '#/definitions/model.VideoInfo'
+        type: array
+    type: object
+  model.UrlInfo:
+    properties:
+      url:
+        type: string
+      url_id:
+        type: string
+    type: object
+  model.UserLogin:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  model.VideoInfo:
+    properties:
+      video_id:
+        type: string
+      video_url:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/auth/login:
+    post:
+      description: it generates new tokens
+      parameters:
+      - description: login and password
+        in: body
+        name: userinfo
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserLogin'
+      responses:
+        "200":
+          description: Token
+          schema:
+            type: string
+        "400":
+          description: Invalid date
+          schema:
+            type: string
+        "500":
+          description: error while reading from server
+          schema:
+            type: string
+      summary: login user
+      tags:
+      - auth
+  /v1/twit:
+    post:
+      description: it will Create Twit
+      parameters:
+      - description: info
+        in: body
+        name: info
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateTwitRequestApi'
+      responses:
+        "200":
+          description: twit_id
+          schema:
+            type: string
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "401":
+          description: Invalid token
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Create Twit
+      tags:
+      - TWIT API
+  /v1/twit/{id}:
+    delete:
+      description: it will Delete Twit
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: message
+          schema:
+            type: string
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Twit
+      tags:
+      - TWIT API
+    get:
+      description: it will Get Twit By id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TwitResponse'
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: Get Twit
+      tags:
+      - TWIT API
+    post:
+      description: it will add views Twit
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: message
+          schema:
+            type: string
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: Add view to Twit
+      tags:
+      - TWIT API
+  /v1/twit/all:
+    get:
+      description: it will get all Twits
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: get all Twits
+      tags:
+      - TWIT API
+  /v1/twit/latest-uploaded:
+    get:
+      description: it will get latest twits
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: get latest twits
+      tags:
+      - TWIT API
+  /v1/twit/location:
+    post:
+      description: it will Create Twit's Location
+      parameters:
+      - description: info
+        in: body
+        name: info
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateLocationRequest'
+      responses:
+        "200":
+          description: location_id
+          schema:
+            type: string
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Create Twit's Location
+      tags:
+      - TWIT API
+  /v1/twit/most-viewed:
+    get:
+      description: it will get most view twits
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: get most view twits
+      tags:
+      - TWIT API
+  /v1/twit/music/{twit_id}:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload Twit Music
+      parameters:
+      - description: twit_id
+        in: path
+        name: twit_id
+        required: true
+        type: string
+      - description: UploadMediaForm
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: CreateMusic
+      tags:
+      - TWIT API
+  /v1/twit/photo/{twit_id}:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload Twit Photo
+      parameters:
+      - description: twit_id
+        in: path
+        name: twit_id
+        required: true
+        type: string
+      - description: UploadMediaForm
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: CreatePhoto
+      tags:
+      - TWIT API
+  /v1/twit/search:
+    get:
+      description: it will search twit by keyword from twit text and twit title and
+        publisher-name
+      parameters:
+      - description: keywoard
+        in: query
+        name: keywoard
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: search twit by keyword from twit text and twit title and publisher-name
+      tags:
+      - TWIT API
+  /v1/twit/type/{type}:
+    get:
+      description: it will get twits by type
+      parameters:
+      - description: type
+        in: path
+        name: type
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      summary: get twits by type
+      tags:
+      - TWIT API
+  /v1/twit/url:
+    post:
+      description: it will Create Twit's urls like youtube url
+      parameters:
+      - description: info
+        in: body
+        name: info
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateURLRequest'
+      responses:
+        "200":
+          description: url_id
+          schema:
+            type: string
+        "400":
+          description: Invalid data
+          schema:
+            type: string
+        "500":
+          description: Server error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Create Twit's urls like youtube url
+      tags:
+      - TWIT API
+  /v1/twit/video/{twit_id}:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload Twit Video
+      parameters:
+      - description: twit_id
+        in: path
+        name: twit_id
+        required: true
+        type: string
+      - description: UploadMediaForm
+        in: formData
+        name: file
+        required: true
+        type: file
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: CreateVideo
+      tags:
+      - TWIT API
+securityDefinitions:
+  ApiKeyAuth:
+    description: API Gateway
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

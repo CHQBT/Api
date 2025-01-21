@@ -18,6 +18,7 @@ type MinioUploader struct {
 
 func NewMinioUploader() (*MinioUploader, error) {
 	cfg := config.Load()
+	fmt.Println("\n NewMinioUploader ga kirdi \n")
 	client, err := minio.New(cfg.Minio.MINIO_ENDPOINT, &minio.Options{
 		Creds:  credentials.NewStaticV4(cfg.Minio.MINIO_ACCESS_KEY_ID, cfg.Minio.MINIO_SECRET_ACCESS_KEY, ""),
 		Secure: false,
@@ -41,7 +42,7 @@ func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, heade
 
 	// Upload the file
 	_, err := m.client.PutObject(ctx, bucketName, newFileName, file, header.Size, minio.PutObjectOptions{
-		ContentType: getContentType(fileExt),
+		ContentType: "image/jpeg",
 	})
 	fmt.Println("\n\n\n4\n\n\n\n")
 	if err != nil {

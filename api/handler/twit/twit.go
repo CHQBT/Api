@@ -328,7 +328,6 @@ func (h *newTwits) CreateUrl(c *gin.Context) {
 // @Security ApiKeyAuth
 // @Description Upload Twit Photo
 // @Tags TWIT API
-// @Accept multipart/form-data
 // @Param twit_id path string true "twit_id"
 // @Param file formData file true "UploadMediaForm"
 // @Success 200 {object} string

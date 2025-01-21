@@ -350,6 +350,7 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error retrieving the file"})
 		return
 	}
+	fmt.Println(file)
 	defer file.Close()
 	fmt.Println("minioga kirvoti")
 	url, err := h.MINIO.UploadFile("photos", file, header)

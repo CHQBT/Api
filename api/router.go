@@ -3,7 +3,9 @@ package api
 import (
 	_ "milliy/api/docs"
 	"milliy/api/handler"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -18,6 +20,17 @@ import (
 // BasePath: /
 func Router(h handler.HandlerInterface) *gin.Engine {
 	router := gin.New()
+
+	// Add CORS middleware
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"}, // Allow all origins (or specify your Flutter web app's origin, e.g., "http://localhost:8080")
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	vers := router.Group("/v1")
 	user := vers.Group("/auth")

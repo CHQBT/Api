@@ -466,6 +466,21 @@ paths:
       summary: get twits by type
       tags:
       - TWIT API
+  /v1/twit/types:
+    get:
+      description: Get types list
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: GetUniqueTypes
+      tags:
+      - TWIT API
   /v1/twit/url:
     post:
       description: it will Create Twit's urls like youtube url

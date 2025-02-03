@@ -220,3 +220,33 @@ func (p *TwitRepo) SearchTwit(keyword string) ([]string, error) {
 	}
 	return ids, nil
 }
+
+func (p *TwitRepo) GetUniqueTypes() ([]string, error) {
+	var types []string
+	query := `
+        SELECT DISTINCT type 
+        FROM twit 
+        WHERE deleted_at = 0
+        ORDER BY type` // Optional sorting for consistent order
+
+	rows, err := p.Db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var t string
+		if err := rows.Scan(&t); err != nil {
+			return nil, err
+		}
+		types = append(types, t)
+	}
+
+	// Check for errors from iterating over rows
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return types, nil
+}

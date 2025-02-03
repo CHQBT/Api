@@ -447,6 +447,29 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/twit/types": {
+            "get": {
+                "description": "Get types list",
+                "tags": [
+                    "TWIT API"
+                ],
+                "summary": "GetUniqueTypes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/twit/url": {
             "post": {
                 "security": [

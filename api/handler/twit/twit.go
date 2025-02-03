@@ -465,3 +465,22 @@ func (h *newTwits) CreateVideo(c *gin.Context) {
 	h.Log.Info("Video uploaded successfully")
 	c.JSON(http.StatusOK, gin.H{"video_id": video_id, "url": url})
 }
+
+// @Summary GetUniqueTypes
+// @Description Get types list
+// @Tags TWIT API
+// @Success 200 {object} string
+// @Failure 500 {object} string
+// @Router /v1/twit/types [get]
+func (h *newTwits) GetUniqueTypes(c *gin.Context) {
+	h.Log.Info("GetUniqueTypes called")
+
+	types, err := h.Twit.GetUniqueTypes()
+	if err != nil {
+		h.Log.Error("Error getting unique types", "error", err)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error getting unique types"})
+		return
+	}
+	h.Log.Info("Unique types retrieved successfully")
+	c.JSON(http.StatusOK, types)
+}

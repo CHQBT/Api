@@ -274,3 +274,14 @@ func (s *TwitService) CreateUrl(req *model.CreateURLRequest) (string, error) {
 	s.log.Info("CreateUrl rpc finished")
 	return id, nil
 }
+
+func (s *TwitService) GetUniqueTypes() ([]string, error) {
+	s.log.Info("GetUniqueTypes rpc started")
+	types, err := s.storage.Twit().GetUniqueTypes()
+	if err != nil {
+		s.log.Error(fmt.Sprintf("Error getting unique types: %v", err))
+		return nil, err
+	}
+	s.log.Info("GetUniqueTypes rpc finished")
+	return types, nil
+}

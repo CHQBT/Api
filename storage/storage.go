@@ -23,6 +23,7 @@ type TwitStorage interface {
 	GetMostViewedTwit(int) ([]string, error)
 	GetLatestTwits(int) ([]string, error)
 	SearchTwit(string) ([]string, error)
+	GetUniqueTypes() ([]string, error)
 }
 
 type LocationStorage interface {

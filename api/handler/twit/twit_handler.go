@@ -43,4 +43,5 @@ type NewTwit interface {
 	CreatePhoto(c *gin.Context)
 	CreateVideo(c *gin.Context)
 	CreateMusic(c *gin.Context)
+	GetUniqueTypes(c *gin.Context)
 }

@@ -53,6 +53,7 @@ func Router(h handler.HandlerInterface) *gin.Engine {
 		twit.POST("/photo/:twit_id", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().CreatePhoto)
 		twit.POST("/video/:twit_id", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().CreateVideo)
 		twit.POST("/music/:twit_id", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().CreateMusic)
+		twit.GET("/types", h.TwitMethods().GetUniqueTypes)
 	}
 
 	return router

@@ -28,14 +28,14 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             # Check if the USER-SERVICE directory exists
-            if [ -d "USER-SERVICE" ]; then
+            if [ -d "Api" ]; then
               echo "Repository exists. Pulling latest changes..."
-              cd USER-SERVICE
+              cd Api
               git pull origin main
             else
               echo "Repository does not exist. Cloning repository..."
-              git clone git@github.com:aytijobs/USER-SERVICE.git
-              cd USER-SERVICE
+              git clone git@github.com:CHQBT/Api.git
+              cd Api
             fi
 
             # Stop and remove existing Docker containers

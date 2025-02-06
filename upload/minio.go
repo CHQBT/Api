@@ -64,8 +64,8 @@ func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, heade
 		return "", fmt.Errorf("failed to set bucket policy: %v", err)
 	}
 
-	// Generate URL
-	url := fmt.Sprintf("http://%s/%s/%s", config.Load().Minio.MINIO_ENDPOINT, bucketName, newFileName)
+	// Generate URL with your domain
+	url := fmt.Sprintf("https://%s/%s/%s", config.Load().Minio.MINIO_ENDPOINT, bucketName, newFileName)
 	fmt.Println("miniodan chiqvoti")
 	return url, nil
 }

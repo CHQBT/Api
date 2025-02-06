@@ -356,7 +356,7 @@ func (h *newTwits) CreatePhoto(c *gin.Context) {
 	url, err := h.MINIO.UploadFile("photos", file, header)
 	if err != nil {
 		h.Log.Error("Error uploading the file to MinIO", "error", err)
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error uploading the file to MinIO"})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	photo_id, err := h.Twit.CreatePhoto(&model.CreatePhotoRequest{

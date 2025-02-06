@@ -50,7 +50,6 @@ services:
   minio:
     image: docker.io/bitnami/minio:2024
     ports:
-      - '9000:9000' # HTTP port
       - '9001:9001' # HTTPS port
     volumes:
       - minio_data:/bitnami/minio/data

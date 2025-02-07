@@ -65,7 +65,8 @@ func (m *MinioUploader) UploadFile(bucketName string, file multipart.File, heade
 	}
 
 	// Generate URL
-	url := fmt.Sprintf("http://%s/%s/%s", config.Load().Minio.MINIO_ENDPOINT, bucketName, newFileName)
+	// UploadFile funktsiyasida:
+	url := fmt.Sprintf("%s/%s/%s", config.Load().Minio.MINIO_PUBLIC_URL, bucketName, newFileName)
 	fmt.Println("miniodan chiqvoti")
 	return url, nil
 }

@@ -42,6 +42,7 @@ type MinioConfig struct {
 	MINIO_ACCESS_KEY_ID     string
 	MINIO_SECRET_ACCESS_KEY string
 	MINIO_BUCKET_NAME       string
+	MINIO_PUBLIC_URL        string
 }
 
 func Load() *Config {
@@ -68,6 +69,8 @@ func Load() *Config {
 			MINIO_ENDPOINT:          cast.ToString(coalesce("MINIO_ENDPOINT", "access_key")),
 			MINIO_ACCESS_KEY_ID:     cast.ToString(coalesce("MINIO_ACCESS_KEY_ID", "access_key")),
 			MINIO_SECRET_ACCESS_KEY: cast.ToString(coalesce("MINIO_SECRET_ACCESS_KEY", "access_key")),
+			MINIO_BUCKET_NAME:       cast.ToString(coalesce("MINIO_BUCKET_NAME", "twit_images")),
+			MINIO_PUBLIC_URL:        cast.ToString(coalesce("MINIO_PUBLIC_URL", "http://localhost:9000/minio/")),
 		},
 	}
 }

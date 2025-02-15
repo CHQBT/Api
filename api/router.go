@@ -54,6 +54,9 @@ func Router(h handler.HandlerInterface) *gin.Engine {
 		twit.POST("/video/:twit_id", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().CreateVideo)
 		twit.POST("/music/:twit_id", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().CreateMusic)
 		twit.GET("/types", h.TwitMethods().GetUniqueTypes)
+		twit.POST("/main", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().AddMainTwit) // Main twit qo‘shish
+		twit.GET("/main", h.TwitMethods().GetMainTwit)                                                   // Faol main twitlarni olish
+		twit.DELETE("/main/:twit_id", h.EnforcerMethods().CheckPermissionMiddleware(), h.TwitMethods().DeleteMainTwit)
 	}
 
 	return router

@@ -484,3 +484,86 @@ func (h *newTwits) GetUniqueTypes(c *gin.Context) {
 	h.Log.Info("Unique types retrieved successfully")
 	c.JSON(http.StatusOK, types)
 }
+
+// AddMainTwit godoc
+// @Security ApiKeyAuth
+// @Summary Add a main twit
+// @Description Adds a new main twit with start_time and end_time
+// @Tags TWIT API
+// @Param info body model.SavedRequestApi true "Twit details"
+// @Success 200 {object} string "Twit saved successfully"
+// @Failure 400 {object} string "Invalid data"
+// @Failure 500 {object} string "Server error"
+// @Router /v1/twit/main [post]
+func (h *newTwits) AddMainTwit(c *gin.Context) {
+	h.Log.Info("AddMainTwit called")
+	var req model.SavedRequestApi
+
+	if err := c.ShouldBindJSON(&req); err != nil {
+		h.Log.Error("Invalid data", "error", err)
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	err := h.Twit.AddMainTwit(req.TwitId, req.StartTime, req.EndTime)
+	if err != nil {
+		h.Log.Error("Error adding main twit", "error", err)
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	h.Log.Info("Main twit added successfully")
+	c.JSON(200, gin.H{"message": "Twit saved successfully"})
+}
+
+// GetMainTwit godoc
+// @Summary Get active main twits
+// @Description Retrieves main twits that are not deleted and match the current time range
+// @Tags TWIT API
+// @Success 200 {object} []string "List of twit IDs"
+// @Failure 500 {object} string "Server error"
+// @Router /v1/twit/main [get]
+func (h *newTwits) GetMainTwit(c *gin.Context) {
+	h.Log.Info("GetMainTwit called")
+
+	twits, err := h.Twit.GetMainTwit()
+	if err != nil {
+		h.Log.Error("Error getting main twits", "error", err)
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	h.Log.Info("Retrieved main twits successfully")
+	c.JSON(200, gin.H{"twits": twits})
+}
+
+// DeleteMainTwit godoc
+// @Security ApiKeyAuth
+// @Summary Delete a main twit
+// @Description Soft deletes a main twit
+// @Tags TWIT API
+// @Param twit_id path string true "Twit ID"
+// @Success 200 {object} string "Twit deleted successfully"
+// @Failure 400 {object} string "Invalid twit ID"
+// @Failure 500 {object} string "Server error"
+// @Router /v1/twit/main/{twit_id} [delete]
+func (h *newTwits) DeleteMainTwit(c *gin.Context) {
+	h.Log.Info("DeleteMainTwit called")
+	twitID := c.Param("twit_id")
+
+	if twitID == "" {
+		h.Log.Error("Invalid twit ID")
+		c.JSON(400, gin.H{"error": "Invalid twit ID"})
+		return
+	}
+
+	err := h.Twit.DeleteMainTwit(twitID)
+	if err != nil {
+		h.Log.Error("Error deleting main twit", "error", err)
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	h.Log.Info("Main twit deleted successfully")
+	c.JSON(200, gin.H{"message": "Twit deleted successfully"})
+}

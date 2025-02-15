@@ -285,3 +285,45 @@ func (s *TwitService) GetUniqueTypes() ([]string, error) {
 	s.log.Info("GetUniqueTypes rpc finished")
 	return types, nil
 }
+
+func (s *TwitService) AddMainTwit(twitID, start_time, end_time string) error {
+	s.log.Info("AddMainTwit rpc started")
+
+	// Twitni bazaga qo‘shish
+	err := s.storage.Twit().AddMainTwit(twitID, start_time, end_time)
+	if err != nil {
+		s.log.Error(fmt.Sprintf("Error adding main twit: %v", err))
+		return err
+	}
+
+	s.log.Info("AddMainTwit rpc finished")
+	return nil
+}
+
+func (s *TwitService) GetMainTwit() ([]string, error) {
+	s.log.Info("GetMainTwit rpc started")
+
+	// Hozirgi vaqtga mos keladigan twitlarni olish
+	twits, err := s.storage.Twit().GetMainTwit()
+	if err != nil {
+		s.log.Error(fmt.Sprintf("Error getting main twits: %v", err))
+		return nil, err
+	}
+
+	s.log.Info("GetMainTwit rpc finished")
+	return twits, nil
+}
+
+func (s *TwitService) DeleteMainTwit(twitID string) error {
+	s.log.Info("DeleteMainTwit rpc started")
+
+	// Twitni o‘chirish (soft delete)
+	err := s.storage.Twit().DeleteMainTwit(twitID)
+	if err != nil {
+		s.log.Error(fmt.Sprintf("Error deleting main twit: %v", err))
+		return err
+	}
+
+	s.log.Info("DeleteMainTwit rpc finished")
+	return nil
+}

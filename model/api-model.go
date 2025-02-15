@@ -60,3 +60,9 @@ type CreateTwitRequestApi struct {
 	Texts        string `json:"texts"`
 	Title        string `json:"title"`
 }
+
+type SavedRequestApi struct {
+	TwitId    string `json:"twit_id"`
+	StartTime string `json:"start_time"`
+	EndTime   string `json:"end_time"`
+}

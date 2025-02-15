@@ -24,6 +24,9 @@ type TwitStorage interface {
 	GetLatestTwits(int) ([]string, error)
 	SearchTwit(string) ([]string, error)
 	GetUniqueTypes() ([]string, error)
+	AddMainTwit(twitID, start_time, end_time string) error
+	GetMainTwit() ([]string, error)
+	DeleteMainTwit(twitID string) error
 }
 
 type LocationStorage interface {

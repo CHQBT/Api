@@ -223,6 +223,118 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/twit/main": {
+            "get": {
+                "description": "Retrieves main twits that are not deleted and match the current time range",
+                "tags": [
+                    "TWIT API"
+                ],
+                "summary": "Get active main twits",
+                "responses": {
+                    "200": {
+                        "description": "List of twit IDs",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Adds a new main twit with start_time and end_time",
+                "tags": [
+                    "TWIT API"
+                ],
+                "summary": "Add a main twit",
+                "parameters": [
+                    {
+                        "description": "Twit details",
+                        "name": "info",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SavedRequestApi"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Twit saved successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid data",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/twit/main/{twit_id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Soft deletes a main twit",
+                "tags": [
+                    "TWIT API"
+                ],
+                "summary": "Delete a main twit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Twit ID",
+                        "name": "twit_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Twit deleted successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid twit ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/twit/most-viewed": {
             "get": {
                 "description": "it will get most view twits",
@@ -759,6 +871,20 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "photo_url": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.SavedRequestApi": {
+            "type": "object",
+            "properties": {
+                "end_time": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "string"
+                },
+                "twit_id": {
                     "type": "string"
                 }
             }

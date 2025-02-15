@@ -5,3 +5,5 @@ p, admin, /v1/twit/url, POST
 p, admin, /v1/twit/photo/:twit_id, POST
 p, admin, /v1/twit/video/:twit_id, POST
 p, admin, /v1/twit/music/:twit_id, POST
+p, admin, /v1/twit/main, POST
+p, admin, /v1/twit/main/:twit_id, DELETE
